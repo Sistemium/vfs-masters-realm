@@ -1,0 +1,41 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "address": {
+            "bsonType": "string"
+        },
+        "addressInfo": {
+            "bsonType": "string"
+        },
+        "apartment": {
+            "bsonType": "string"
+        },
+        "doorCode": {
+            "bsonType": "string"
+        },
+        "house": {
+            "bsonType": "string"
+        },
+        "info": {
+            "bsonType": "string"
+        },
+        "locality": {
+            "bsonType": "objectId"
+        },
+        "masterIds": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "string"
+            }
+        },
+        "name": {
+            "bsonType": "string"
+        },
+        "street": {
+            "bsonType": "objectId"
+        }
+    },
+    "title": "ServicePoint"
+}

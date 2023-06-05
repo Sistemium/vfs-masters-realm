@@ -1,0 +1,29 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "district": {
+            "bsonType": "objectId"
+        },
+        "locality": {
+            "bsonType": "objectId"
+        },
+        "name": {
+            "bsonType": "string"
+        },
+        "nameGen": {
+            "bsonType": "string"
+        },
+        "nameNom": {
+            "bsonType": "string"
+        },
+        "shortenedType": {
+            "bsonType": "string"
+        },
+        "type": {
+            "bsonType": "string"
+        }
+    },
+    "title": "Region"
+}

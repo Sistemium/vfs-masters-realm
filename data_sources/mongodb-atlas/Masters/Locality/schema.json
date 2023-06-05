@@ -1,0 +1,38 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "district": {
+            "bsonType": "objectId"
+        },
+        "hasDistrict": {
+            "bsonType": "bool"
+        },
+        "name": {
+            "bsonType": "string"
+        },
+        "nameFull": {
+            "bsonType": "string"
+        },
+        "nameGen": {
+            "bsonType": "string"
+        },
+        "nameNom": {
+            "bsonType": "string"
+        },
+        "needsRegion": {
+            "bsonType": "bool"
+        },
+        "region": {
+            "bsonType": "objectId"
+        },
+        "shortenedType": {
+            "bsonType": "string"
+        },
+        "type": {
+            "bsonType": "string"
+        }
+    },
+    "title": "Locality"
+}

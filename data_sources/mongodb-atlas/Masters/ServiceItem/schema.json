@@ -1,0 +1,44 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "additionalServiceInfo": {
+            "bsonType": "string"
+        },
+        "guaranteePeriod": {
+            "bsonType": "int"
+        },
+        "info": {
+            "bsonType": "string"
+        },
+        "installingDate": {
+            "bsonType": "string"
+        },
+        "installingMaster": {
+            "bsonType": "objectId"
+        },
+        "installingPrice": {
+            "bsonType": "double"
+        },
+        "serviceFrequency": {
+            "bsonType": "int"
+        },
+        "serviceInfo": {
+            "bsonType": "string"
+        },
+        "servicePoint": {
+            "bsonType": "objectId"
+        },
+        "servicePrice": {
+            "bsonType": "int"
+        },
+        "servingMaster": {
+            "bsonType": "objectId"
+        },
+        "smallServicePrice": {
+            "bsonType": "int"
+        }
+    },
+    "title": "ServiceItem"
+}

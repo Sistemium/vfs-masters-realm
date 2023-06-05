@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "async": "^3.2.4",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/async": "^3.2.20"
+  }
+}
