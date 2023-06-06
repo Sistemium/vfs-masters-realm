@@ -11,7 +11,8 @@
     },
     {
         "name": "onUserCreation",
-        "private": false
+        "private": false,
+        "run_as_system": true
     },
     {
         "name": "resetFunc",

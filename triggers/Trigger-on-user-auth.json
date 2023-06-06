@@ -4,10 +4,12 @@
     "config": {
         "operation_type": "CREATE",
         "providers": [
-            "local-userpass"
+            "local-userpass",
+            "api-key",
+            "custom-function"
         ]
     },
-    "disabled": false,
+    "disabled": true,
     "event_processors": {
         "FUNCTION": {
             "config": {

@@ -37,6 +37,6 @@
         "secret_config": {
             "clientSecret": "jvt_secret"
         },
-        "disabled": true
+        "disabled": false
     }
 }
