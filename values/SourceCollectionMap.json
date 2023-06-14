@@ -2,6 +2,9 @@
     "name": "SourceCollectionMap",
     "value": [
         {
+            "coll": "FilterSystemType"
+        },
+        {
             "coll": "District",
             "filter": {
                 "SAV_KODAS": {
