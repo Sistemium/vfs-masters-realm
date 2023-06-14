@@ -349,7 +349,6 @@
                 "plannedServiceType",
                 "lastServiceType",
                 "lastServiceDate",
-                "pausedFrom",
                 "currentServiceContractId",
                 "site",
                 "sp",
