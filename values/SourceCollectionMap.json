@@ -78,6 +78,38 @@
             ]
         },
         {
+            "coll": "Person",
+            "filter": {},
+            "pre": [
+                { 
+                    "$addFields": { 
+                        "type": "person",
+                        "name": { 
+                            "$concat": [
+                                "$firstName",
+                                " ",
+                                "$lastName"
+                            ]
+                        }
+                    } 
+                },
+                {   
+                    "$unionWith": {
+                        "coll": "LegalEntity",
+                        "pipeline": [
+                            { "$addFields": { "type": "entity" } }
+                        ]
+                    }
+                }
+            ],
+            "rename": "Customer",
+            "unset": [
+                "notificationAgreement",
+                "servingMasterId",
+                "locationId"
+            ]
+        },
+        {
             "coll": "ServicePoint",
             "filter": {
                 "siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
