@@ -102,11 +102,26 @@
                     }
                 }
             ],
+            "rels": [
+                {
+                    "field": "localityId",
+                    "from": "Locality",
+                    "optional": true
+                },
+                {
+                    "field": "streetId",
+                    "from": "Street",
+                    "optional": true
+                }
+            ],
             "rename": "Customer",
             "unset": [
                 "notificationAgreement",
                 "servingMasterId",
-                "locationId"
+                "locationId",
+                "phone",
+                "email",
+                "avatarPictureId"
             ]
         },
         {
@@ -166,6 +181,61 @@
                     "$replaceRoot": {
                         "newRoot": "$point"
                     }
+                },
+                {
+                    "$lookup": {
+                        "as": "contract",
+                        "foreignField": "id",
+                        "from": "ServiceContract",
+                        "localField": "currentServiceContractId"
+                    }
+                },
+                { 
+                    "$unwind": "$contract" },
+                {
+                    "$lookup": {
+                        "as": "person",
+                        "foreignField": "id",
+                        "from": "Person",
+                        "localField": "contract.customerPersonId"
+                    }
+                },
+                {
+                    "$lookup": {
+                        "as": "entity",
+                        "foreignField": "id",
+                        "from": "LegalEntity",
+                        "localField": "contract.customerLegalEntityId"
+                    }
+                },
+                { 
+                    "$unwind": { 
+                        "path": "$entity",
+                        "preserveNullAndEmptyArrays": true 
+                    }
+                },
+                { 
+                    "$unwind": { 
+                        "path": "$person",
+                        "preserveNullAndEmptyArrays": true 
+                    }
+                },
+                { 
+                    "$set": {
+                        "customer": {
+                            "$ifNull": [
+                                "$person._id",
+                                "$entity._id"
+                            ]
+                        }
+                    }
+                },
+                { 
+                    "$unset": [
+                        "contract",
+                        "person",
+                        "entity"
+                    ]
                 }
             ],
             "rels": [
