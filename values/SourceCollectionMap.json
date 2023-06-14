@@ -81,23 +81,27 @@
             "coll": "Person",
             "filter": {},
             "pre": [
-                { 
-                    "$addFields": { 
-                        "type": "person",
-                        "name": { 
+                {
+                    "$addFields": {
+                        "name": {
                             "$concat": [
                                 "$firstName",
                                 " ",
                                 "$lastName"
                             ]
-                        }
-                    } 
+                        },
+                        "type": "person"
+                    }
                 },
-                {   
+                {
                     "$unionWith": {
                         "coll": "LegalEntity",
                         "pipeline": [
-                            { "$addFields": { "type": "entity" } }
+                            {
+                                "$addFields": {
+                                    "type": "entity"
+                                }
+                            }
                         ]
                     }
                 }
@@ -190,8 +194,9 @@
                         "localField": "currentServiceContractId"
                     }
                 },
-                { 
-                    "$unwind": "$contract" },
+                {
+                    "$unwind": "$contract"
+                },
                 {
                     "$lookup": {
                         "as": "person",
@@ -208,19 +213,19 @@
                         "localField": "contract.customerLegalEntityId"
                     }
                 },
-                { 
-                    "$unwind": { 
+                {
+                    "$unwind": {
                         "path": "$entity",
-                        "preserveNullAndEmptyArrays": true 
+                        "preserveNullAndEmptyArrays": true
                     }
                 },
-                { 
-                    "$unwind": { 
+                {
+                    "$unwind": {
                         "path": "$person",
-                        "preserveNullAndEmptyArrays": true 
+                        "preserveNullAndEmptyArrays": true
                     }
                 },
-                { 
+                {
                     "$set": {
                         "customer": {
                             "$ifNull": [
@@ -230,7 +235,7 @@
                         }
                     }
                 },
-                { 
+                {
                     "$unset": [
                         "contract",
                         "person",
@@ -279,6 +284,47 @@
                 },
                 {
                     "$unwind": "$sp"
+                },
+                {
+                    "$lookup": {
+                        "as": "fs",
+                        "foreignField": "id",
+                        "from": "FilterSystem",
+                        "localField": "filterSystemId"
+                    }
+                },
+                {
+                    "$unwind": "$fs"
+                },
+                {
+                    "$set": {
+                        "filterSystemType": "$fs._id",
+                        "guaranteePeriod": {
+                            "$ifNull": [
+                                "$guaranteePeriod",
+                                "$fs.guaranteePeriod"
+                            ]
+                        },
+                        "name": "$fs.name",
+                        "serviceFrequency": {
+                            "$ifNull": [
+                                "$serviceFrequency",
+                                "$fs.serviceFrequency"
+                            ]
+                        },
+                        "servicePrice": {
+                            "$ifNull": [
+                                "$servicePrice",
+                                "$fs.servicePrice"
+                            ]
+                        },
+                        "smallServicePrice": {
+                            "$ifNull": [
+                                "$smallServicePrice",
+                                "$fs.smallServicePrice"
+                            ]
+                        }
+                    }
                 }
             ],
             "rels": [
@@ -306,7 +352,9 @@
                 "pausedFrom",
                 "currentServiceContractId",
                 "site",
-                "sp"
+                "sp",
+                "fs",
+                "filterSystemId"
             ]
         },
         {
