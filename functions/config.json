@@ -1,5 +1,10 @@
 [
     {
+        "name": "updateSelfUserData",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
         "name": "authPHAFunc",
         "private": true
     },
@@ -17,10 +22,5 @@
     {
         "name": "resetFunc",
         "private": true
-    },
-    {
-        "name": "updateSelfUserData",
-        "private": false,
-        "disable_arg_logs": true
     }
 ]
