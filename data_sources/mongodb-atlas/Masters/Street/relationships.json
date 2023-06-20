@@ -1,1 +1,8 @@
-{}
+{
+    "locality": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Locality",
+        "source_key": "locality",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}
