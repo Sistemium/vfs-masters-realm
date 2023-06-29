@@ -27,6 +27,9 @@
         "name": {
             "bsonType": "string"
         },
+        "paymentMethod": {
+            "bsonType": "string"
+        },
         "street": {
             "bsonType": "objectId"
         },
