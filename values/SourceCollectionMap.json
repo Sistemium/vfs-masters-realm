@@ -97,6 +97,14 @@
                     }
                 },
                 {
+                    "$lookup": {
+                        "from": "ServiceContract",
+                        "as": "contracts",
+                        "localField": "id",
+                        "foreignField": "customerPersonId"
+                    }
+                },
+                {
                     "$unionWith": {
                         "coll": "LegalEntity",
                         "pipeline": [
@@ -104,8 +112,21 @@
                                 "$addFields": {
                                     "type": "entity"
                                 }
+                            },
+                            {
+                                "$lookup": {
+                                    "from": "ServiceContract",
+                                    "as": "contracts",
+                                    "localField": "id",
+                                    "foreignField": "customerLegalEntityId"
+                                }
                             }
                         ]
+                    }
+                },
+                {
+                    "$addFields": {
+                        "paymentMethod": { "$arrayElemAt": ["$contracts.paymentMethod", 0] }
                     }
                 }
             ],
@@ -126,6 +147,7 @@
                 "notificationAgreement",
                 "servingMasterId",
                 "locationId",
+                "contracts",
                 "phone",
                 "email",
                 "avatarPictureId"
