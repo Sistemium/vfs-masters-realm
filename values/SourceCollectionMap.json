@@ -98,10 +98,10 @@
                 },
                 {
                     "$lookup": {
-                        "from": "ServiceContract",
                         "as": "contracts",
-                        "localField": "id",
-                        "foreignField": "customerPersonId"
+                        "foreignField": "customerPersonId",
+                        "from": "ServiceContract",
+                        "localField": "id"
                     }
                 },
                 {
@@ -115,10 +115,10 @@
                             },
                             {
                                 "$lookup": {
-                                    "from": "ServiceContract",
                                     "as": "contracts",
-                                    "localField": "id",
-                                    "foreignField": "customerLegalEntityId"
+                                    "foreignField": "customerLegalEntityId",
+                                    "from": "ServiceContract",
+                                    "localField": "id"
                                 }
                             }
                         ]
@@ -126,7 +126,14 @@
                 },
                 {
                     "$addFields": {
-                        "paymentMethod": { "$arrayElemAt": ["$contracts.paymentMethod", 0] }
+                        "paymentMethod": {
+                            "$arrayElemAt": [
+                                "$contracts.paymentMethod",
+                                {
+                                    "$numberInt": "0"
+                                }
+                            ]
+                        }
                     }
                 }
             ],
