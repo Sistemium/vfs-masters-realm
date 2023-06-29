@@ -1,1 +1,14 @@
-{}
+{
+    "locality": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Locality",
+        "source_key": "locality",
+        "foreign_key": "_id",
+        "is_list": false
+    },
+    "street": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Street",
+        "source_key": "street",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}
