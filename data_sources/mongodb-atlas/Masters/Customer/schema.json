@@ -1,0 +1,35 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "address": {
+            "bsonType": "string"
+        },
+        "apartment": {
+            "bsonType": "string"
+        },
+        "code": {
+            "bsonType": "string"
+        },
+        "firstName": {
+            "bsonType": "string"
+        },
+        "house": {
+            "bsonType": "string"
+        },
+        "lastName": {
+            "bsonType": "string"
+        },
+        "locality": {
+            "bsonType": "objectId"
+        },
+        "name": {
+            "bsonType": "string"
+        },
+        "type": {
+            "bsonType": "string"
+        }
+    },
+    "title": "Customer"
+}
