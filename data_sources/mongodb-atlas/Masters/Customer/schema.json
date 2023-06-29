@@ -27,7 +27,13 @@
         "name": {
             "bsonType": "string"
         },
+        "street": {
+            "bsonType": "objectId"
+        },
         "type": {
+            "bsonType": "string"
+        },
+        "vatCode": {
             "bsonType": "string"
         }
     },

@@ -6,6 +6,9 @@
         "additionalServiceInfo": {
             "bsonType": "string"
         },
+        "filterSystemType": {
+            "bsonType": "objectId"
+        },
         "guaranteePeriod": {
             "bsonType": "int"
         },
@@ -20,6 +23,12 @@
         },
         "installingPrice": {
             "bsonType": "double"
+        },
+        "name": {
+            "bsonType": "string"
+        },
+        "pausedFrom": {
+            "bsonType": "string"
         },
         "serviceFrequency": {
             "bsonType": "int"

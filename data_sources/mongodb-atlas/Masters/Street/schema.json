@@ -12,6 +12,12 @@
         "nameGen": {
             "bsonType": "string"
         },
+        "region": {
+            "bsonType": "objectId"
+        },
+        "regionName": {
+            "bsonType": "string"
+        },
         "shortenedType": {
             "bsonType": "string"
         },

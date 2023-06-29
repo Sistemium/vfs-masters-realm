@@ -12,6 +12,9 @@
         "apartment": {
             "bsonType": "string"
         },
+        "customer": {
+            "bsonType": "objectId"
+        },
         "doorCode": {
             "bsonType": "string"
         },
