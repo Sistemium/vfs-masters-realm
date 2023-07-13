@@ -1,1 +1,26 @@
-{}
+{
+    "filterSystemType": {
+        "ref": "#/relationship/mongodb-atlas/Masters/FilterSystemType",
+        "source_key": "filterSystemType",
+        "foreign_key": "_id",
+        "is_list": false
+    },
+    "installingMaster": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Master",
+        "source_key": "installingMaster",
+        "foreign_key": "_id",
+        "is_list": false
+    },
+    "servicePoint": {
+        "ref": "#/relationship/mongodb-atlas/Masters/ServicePoint",
+        "source_key": "servicePoint",
+        "foreign_key": "_id",
+        "is_list": false
+    },
+    "servingMaster": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Master",
+        "source_key": "servingMaster",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}

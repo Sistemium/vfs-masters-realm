@@ -12,8 +12,8 @@
         "defaultRoles": []
     },
     "queryable_fields_names": [
-        "servingMasterId",
         "name",
-        "masterIds"
+        "masterIds",
+        "servingMaster"
     ]
 }
