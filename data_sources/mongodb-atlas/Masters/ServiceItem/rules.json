@@ -33,6 +33,19 @@
             "search": false
         },
         {
+            "name": "user_create",
+            "apply_when": {},
+            "document_filters": {
+                "write": {},
+                "read": {}
+            },
+            "read": true,
+            "write": true,
+            "insert": true,
+            "delete": false,
+            "search": false
+        },
+        {
             "name": "user",
             "apply_when": {},
             "document_filters": {
