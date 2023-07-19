@@ -425,6 +425,82 @@
                 "person",
                 "info"
             ]
+        },
+        {
+            "coll": "ContactMethod"
+        },
+        {
+            "coll": "Contact",
+            "pre": [
+                {
+                    "$lookup": {
+                        "as": "person",
+                        "foreignField": "id",
+                        "from": "Person",
+                        "localField": "ownerXid"
+                    }
+                },
+                {
+                    "$lookup": {
+                        "as": "entity",
+                        "foreignField": "id",
+                        "from": "LegalEntity",
+                        "localField": "ownerXid"
+                    }
+                },
+                {
+                    "$set": {
+                        "customer": {
+                            "$ifNull": [
+                                {
+                                    "$arrayElemAt": [
+                                        "$person",
+                                        {
+                                            "$numberInt": "0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "$arrayElemAt": [
+                                        "$entity",
+                                        {
+                                            "$numberInt": "0"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "$set": {
+                        "customer": "$customer._id"
+                    }
+                },
+                {
+                    "$match": {
+                        "customer": {
+                            "$ne": null
+                        }
+                    }
+                },
+                {
+                    "$unset": [
+                        "person",
+                        "entity",
+                        "ownerXid"
+                    ]
+                }
+            ],
+            "rels": [
+                {
+                    "field": "contactMethodId",
+                    "from": "ContactMethod"
+                }
+            ],
+            "unset": [
+                "source"
+            ]
         }
     ],
     "from_secret": false
