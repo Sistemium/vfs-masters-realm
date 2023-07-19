@@ -36,7 +36,7 @@ exports = async function (arg = {}) {
       return;
     }
 
-    const lookups = rels.map(({ from, field, optional = false }) => [
+    const lookups = rels.map(({ from, field, optional = false, as }) => [
       {
         $lookup: {
           from,
@@ -46,7 +46,7 @@ exports = async function (arg = {}) {
         },
       },
       { $unwind: { path: "$p", preserveNullAndEmptyArrays: optional } },
-      { $set: { [field.replace(/Id$/, "")]: "$p._id" } },
+      { $set: { [as || field.replace(/Id$/, "")]: "$p._id" } },
       { $unset: ["p", field] },
     ]);
 
