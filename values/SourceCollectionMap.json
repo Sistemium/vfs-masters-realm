@@ -129,9 +129,7 @@
                         "paymentMethod": {
                             "$arrayElemAt": [
                                 "$contracts.paymentMethod",
-                                {
-                                    "$numberInt": "0"
-                                }
+                                0
                             ]
                         }
                     }
@@ -455,17 +453,13 @@
                                 {
                                     "$arrayElemAt": [
                                         "$person",
-                                        {
-                                            "$numberInt": "0"
-                                        }
+                                        0
                                     ]
                                 },
                                 {
                                     "$arrayElemAt": [
                                         "$entity",
-                                        {
-                                            "$numberInt": "0"
-                                        }
+                                        0
                                     ]
                                 }
                             ]
