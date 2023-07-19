@@ -495,6 +495,53 @@
             "unset": [
                 "source"
             ]
+        },
+        {
+            "coll": "ServiceItemService",
+            "pre": [
+                {
+                    "$lookup": {
+                        "as": "si",
+                        "foreignField": "id",
+                        "from": "ServiceItem",
+                        "localField": "serviceItemId"
+                    }
+                },
+                {
+                    "$unwind": "$si"
+                },
+                {
+                    "$lookup": {
+                        "as": "sp",
+                        "foreignField": "id",
+                        "from": "ServicePoint",
+                        "localField": "si.servicePointId"
+                    }
+                },
+                {
+                    "$unwind": "$sp"
+                },
+                {
+                    "$unset": [
+                        "si"
+                    ]
+                }
+            ],
+            "filter": {
+                "sp.siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
+            },
+            "rels": [
+                {
+                    "field": "serviceItemId",
+                    "from": "ServiceItem"
+                },
+                {
+                    "field": "servingMasterId",
+                    "from": "Employee",
+                    "optional": true
+                }
+            ],
+            "unset": ["sp"]
         }
     ],
     "from_secret": false
