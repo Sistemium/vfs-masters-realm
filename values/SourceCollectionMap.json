@@ -646,12 +646,49 @@
                     }
                 }
             ],
+            "rels": [
+                {
+                    "field": "avatarPictureId",
+                    "from": "Picture"
+                }
+            ],
             "unset": [
                 "barcodes",
                 "boxes",
                 "isCustomName",
                 "materials",
+                "props",
                 "isSKU"
+            ]
+        },
+        {
+            "coll": "Picture",
+            "pre": [
+                {
+                    "$lookup": {
+                        "as": "a",
+                        "foreignField": "id",
+                        "from": "Article",
+                        "localField": "ownerXid"
+                    }
+                },
+                {
+                    "$unwind": "$a"
+                },
+                {
+                    "$set": {
+                        "owner": "$a._id"
+                    }
+                }
+            ],
+            "filter": {
+                "target": "Article"
+            },
+            "unset": [
+                "picturesInfo",
+                "ownerXid",
+                "name",
+                "a"
             ]
         }
     ],
