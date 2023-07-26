@@ -1,548 +1,654 @@
 {
+    "from_secret": false,
     "name": "SourceCollectionMap",
-    "value": [
-        {
-            "coll": "FilterSystemType"
-        },
-        {
-            "coll": "District",
-            "filter": {
-                "SAV_KODAS": {
-                    "$ne": null
-                }
+    "value": {
+        "from_secret": false,
+        "name": "SourceCollectionMap",
+        "value": [
+            {
+                "coll": "FilterSystemType"
             },
-            "unset": [
-                "SAV_KODAS"
-            ]
-        },
-        {
-            "coll": "Region",
-            "rels": [
-                {
-                    "field": "districtId",
-                    "from": "District"
-                },
-                {
-                    "field": "localityId",
-                    "from": "Locality",
-                    "optional": true
-                }
-            ],
-            "unset": [
-                "SAV_KODAS",
-                "SEN_KODAS"
-            ]
-        },
-        {
-            "coll": "Locality",
-            "filter": {
-                "GYV_KODAS": {
-                    "$ne": null
-                }
-            },
-            "rels": [
-                {
-                    "field": "districtId",
-                    "from": "District"
-                },
-                {
-                    "field": "regionId",
-                    "from": "Region",
-                    "optional": true
-                }
-            ],
-            "unset": [
-                "GYV_KODAS",
-                "district_id",
-                "streetCount"
-            ]
-        },
-        {
-            "coll": "Street",
-            "filter": {
-                "GAT_KODAS": {
-                    "$ne": null
-                }
-            },
-            "rels": [
-                {
-                    "field": "localityId",
-                    "from": "Locality"
-                },
-                {
-                    "field": "regionId",
-                    "from": "Region",
-                    "optional": true
-                }
-            ],
-            "unset": [
-                "GAT_KODAS",
-                "locality_id"
-            ]
-        },
-        {
-            "coll": "Person",
-            "filter": {},
-            "pre": [
-                {
-                    "$addFields": {
-                        "name": {
-                            "$concat": [
-                                "$firstName",
-                                " ",
-                                "$lastName"
-                            ]
-                        },
-                        "type": "person"
+            {
+                "coll": "District",
+                "filter": {
+                    "SAV_KODAS": {
+                        "$ne": null
                     }
                 },
-                {
-                    "$lookup": {
-                        "as": "contracts",
-                        "foreignField": "customerPersonId",
-                        "from": "ServiceContract",
-                        "localField": "id"
+                "unset": [
+                    "SAV_KODAS"
+                ]
+            },
+            {
+                "coll": "Region",
+                "rels": [
+                    {
+                        "field": "districtId",
+                        "from": "District"
+                    },
+                    {
+                        "field": "localityId",
+                        "from": "Locality",
+                        "optional": true
+                    }
+                ],
+                "unset": [
+                    "SAV_KODAS",
+                    "SEN_KODAS"
+                ]
+            },
+            {
+                "coll": "Locality",
+                "filter": {
+                    "GYV_KODAS": {
+                        "$ne": null
                     }
                 },
-                {
-                    "$unionWith": {
-                        "coll": "LegalEntity",
-                        "pipeline": [
-                            {
-                                "$addFields": {
-                                    "type": "entity"
-                                }
+                "rels": [
+                    {
+                        "field": "districtId",
+                        "from": "District"
+                    },
+                    {
+                        "field": "regionId",
+                        "from": "Region",
+                        "optional": true
+                    }
+                ],
+                "unset": [
+                    "GYV_KODAS",
+                    "district_id",
+                    "streetCount"
+                ]
+            },
+            {
+                "coll": "Street",
+                "filter": {
+                    "GAT_KODAS": {
+                        "$ne": null
+                    }
+                },
+                "rels": [
+                    {
+                        "field": "localityId",
+                        "from": "Locality"
+                    },
+                    {
+                        "field": "regionId",
+                        "from": "Region",
+                        "optional": true
+                    }
+                ],
+                "unset": [
+                    "GAT_KODAS",
+                    "locality_id"
+                ]
+            },
+            {
+                "coll": "Person",
+                "filter": {},
+                "pre": [
+                    {
+                        "$addFields": {
+                            "name": {
+                                "$concat": [
+                                    "$firstName",
+                                    " ",
+                                    "$lastName"
+                                ]
                             },
-                            {
-                                "$lookup": {
-                                    "as": "contracts",
-                                    "foreignField": "customerLegalEntityId",
-                                    "from": "ServiceContract",
-                                    "localField": "id"
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    "$addFields": {
-                        "paymentMethod": {
-                            "$arrayElemAt": [
-                                "$contracts.paymentMethod",
-                                0
-                            ]
+                            "type": "person"
                         }
-                    }
-                }
-            ],
-            "rels": [
-                {
-                    "field": "localityId",
-                    "from": "Locality",
-                    "optional": true
-                },
-                {
-                    "field": "streetId",
-                    "from": "Street",
-                    "optional": true
-                }
-            ],
-            "rename": "Customer",
-            "unset": [
-                "notificationAgreement",
-                "servingMasterId",
-                "locationId",
-                "contracts",
-                "phone",
-                "email",
-                "avatarPictureId"
-            ]
-        },
-        {
-            "coll": "ServicePoint",
-            "filter": {
-                "siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
-            },
-            "pre": [
-                {
-                    "$lookup": {
-                        "as": "items",
-                        "foreignField": "servicePointId",
-                        "from": "ServiceItem",
-                        "localField": "id"
-                    }
-                },
-                {
-                    "$project": {
-                        "items": "$items"
-                    }
-                },
-                {
-                    "$unwind": "$items"
-                },
-                {
-                    "$match": {
-                        "items.servingMasterId": {
-                            "$ne": null
+                    },
+                    {
+                        "$lookup": {
+                            "as": "contracts",
+                            "foreignField": "customerPersonId",
+                            "from": "ServiceContract",
+                            "localField": "id"
                         }
-                    }
-                },
-                {
-                    "$group": {
-                        "_id": "$_id",
-                        "masterIds": {
-                            "$addToSet": "$items.servingMasterId"
-                        }
-                    }
-                },
-                {
-                    "$lookup": {
-                        "as": "point",
-                        "foreignField": "_id",
-                        "from": "ServicePoint",
-                        "localField": "_id"
-                    }
-                },
-                {
-                    "$unwind": "$point"
-                },
-                {
-                    "$set": {
-                        "point.masterIds": "$masterIds"
-                    }
-                },
-                {
-                    "$replaceRoot": {
-                        "newRoot": "$point"
-                    }
-                },
-                {
-                    "$lookup": {
-                        "as": "contract",
-                        "foreignField": "id",
-                        "from": "ServiceContract",
-                        "localField": "currentServiceContractId"
-                    }
-                },
-                {
-                    "$unwind": "$contract"
-                },
-                {
-                    "$lookup": {
-                        "as": "person",
-                        "foreignField": "id",
-                        "from": "Person",
-                        "localField": "contract.customerPersonId"
-                    }
-                },
-                {
-                    "$lookup": {
-                        "as": "entity",
-                        "foreignField": "id",
-                        "from": "LegalEntity",
-                        "localField": "contract.customerLegalEntityId"
-                    }
-                },
-                {
-                    "$unwind": {
-                        "path": "$entity",
-                        "preserveNullAndEmptyArrays": true
-                    }
-                },
-                {
-                    "$unwind": {
-                        "path": "$person",
-                        "preserveNullAndEmptyArrays": true
-                    }
-                },
-                {
-                    "$set": {
-                        "customer": {
-                            "$ifNull": [
-                                "$person._id",
-                                "$entity._id"
-                            ]
-                        }
-                    }
-                },
-                {
-                    "$unset": [
-                        "contract",
-                        "person",
-                        "entity"
-                    ]
-                }
-            ],
-            "rels": [
-                {
-                    "field": "localityId",
-                    "from": "Locality",
-                    "optional": true
-                },
-                {
-                    "field": "streetId",
-                    "from": "Street",
-                    "optional": true
-                }
-            ],
-            "unset": [
-                "geo",
-                "servingMasterId",
-                "currentServiceContractId",
-                "locationId",
-                "isPaused",
-                "isReady",
-                "phone",
-                "type",
-                "gifts",
-                "siteId"
-            ]
-        },
-        {
-            "coll": "ServiceItem",
-            "filter": {
-                "sp.siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
-            },
-            "pre": [
-                {
-                    "$lookup": {
-                        "as": "sp",
-                        "foreignField": "id",
-                        "from": "ServicePoint",
-                        "localField": "servicePointId"
-                    }
-                },
-                {
-                    "$unwind": "$sp"
-                },
-                {
-                    "$lookup": {
-                        "as": "fs",
-                        "foreignField": "id",
-                        "from": "FilterSystem",
-                        "localField": "filterSystemId"
-                    }
-                },
-                {
-                    "$unwind": "$fs"
-                },
-                {
-                    "$set": {
-                        "filterSystemType": "$fs._id",
-                        "guaranteePeriod": {
-                            "$ifNull": [
-                                "$guaranteePeriod",
-                                "$fs.guaranteePeriod"
-                            ]
-                        },
-                        "name": "$fs.name",
-                        "serviceFrequency": {
-                            "$ifNull": [
-                                "$serviceFrequency",
-                                "$fs.serviceFrequency"
-                            ]
-                        },
-                        "servicePrice": {
-                            "$ifNull": [
-                                "$servicePrice",
-                                "$fs.servicePrice"
-                            ]
-                        },
-                        "smallServicePrice": {
-                            "$ifNull": [
-                                "$smallServicePrice",
-                                "$fs.smallServicePrice"
-                            ]
-                        }
-                    }
-                }
-            ],
-            "rels": [
-                {
-                    "field": "servicePointId",
-                    "from": "ServicePoint"
-                },
-                {
-                    "field": "servingMasterId",
-                    "from": "Employee",
-                    "optional": true
-                },
-                {
-                    "field": "installingMasterId",
-                    "from": "Employee",
-                    "optional": true
-                }
-            ],
-            "unset": [
-                "nextServiceDate",
-                "plannedServiceDate",
-                "plannedServiceType",
-                "lastServiceType",
-                "lastServiceDate",
-                "currentServiceContractId",
-                "site",
-                "sp",
-                "fs",
-                "filterSystemId"
-            ]
-        },
-        {
-            "coll": "Employee",
-            "filter": {
-                "siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
-            },
-            "pre": [
-                {
-                    "$lookup": {
-                        "as": "person",
-                        "foreignField": "id",
-                        "from": "Person",
-                        "localField": "personId"
-                    }
-                },
-                {
-                    "$unwind": "$person"
-                },
-                {
-                    "$set": {
-                        "name": {
-                            "$concat": [
-                                "$person.firstName",
-                                " ",
-                                "$person.lastName"
-                            ]
-                        }
-                    }
-                }
-            ],
-            "rename": "Master",
-            "unset": [
-                "personId",
-                "siteId",
-                "accountId",
-                "person",
-                "info"
-            ]
-        },
-        {
-            "coll": "ContactMethod"
-        },
-        {
-            "coll": "Contact",
-            "pre": [
-                {
-                    "$lookup": {
-                        "as": "person",
-                        "foreignField": "id",
-                        "from": "Person",
-                        "localField": "ownerXid"
-                    }
-                },
-                {
-                    "$lookup": {
-                        "as": "entity",
-                        "foreignField": "id",
-                        "from": "LegalEntity",
-                        "localField": "ownerXid"
-                    }
-                },
-                {
-                    "$set": {
-                        "customer": {
-                            "$ifNull": [
+                    },
+                    {
+                        "$unionWith": {
+                            "coll": "LegalEntity",
+                            "pipeline": [
                                 {
-                                    "$arrayElemAt": [
-                                        "$person",
-                                        0
-                                    ]
+                                    "$addFields": {
+                                        "type": "entity"
+                                    }
                                 },
                                 {
-                                    "$arrayElemAt": [
-                                        "$entity",
-                                        0
-                                    ]
+                                    "$lookup": {
+                                        "as": "contracts",
+                                        "foreignField": "customerLegalEntityId",
+                                        "from": "ServiceContract",
+                                        "localField": "id"
+                                    }
                                 }
                             ]
                         }
-                    }
-                },
-                {
-                    "$set": {
-                        "customer": "$customer._id"
-                    }
-                },
-                {
-                    "$match": {
-                        "customer": {
-                            "$ne": null
+                    },
+                    {
+                        "$addFields": {
+                            "paymentMethod": {
+                                "$arrayElemAt": [
+                                    "$contracts.paymentMethod",
+                                    0
+                                ]
+                            }
                         }
                     }
-                },
-                {
-                    "$unset": [
-                        "person",
-                        "entity",
-                        "ownerXid"
-                    ]
-                }
-            ],
-            "rels": [
-                {
-                    "field": "contactMethodId",
-                    "from": "ContactMethod"
-                }
-            ],
-            "unset": [
-                "source"
-            ]
-        },
-        {
-            "coll": "ServiceItemService",
-            "pre": [
-                {
-                    "$lookup": {
-                        "as": "si",
-                        "foreignField": "id",
-                        "from": "ServiceItem",
-                        "localField": "serviceItemId"
+                ],
+                "rels": [
+                    {
+                        "field": "localityId",
+                        "from": "Locality",
+                        "optional": true
+                    },
+                    {
+                        "field": "streetId",
+                        "from": "Street",
+                        "optional": true
                     }
-                },
-                {
-                    "$unwind": "$si"
-                },
-                {
-                    "$lookup": {
-                        "as": "sp",
-                        "foreignField": "id",
-                        "from": "ServicePoint",
-                        "localField": "si.servicePointId"
-                    }
-                },
-                {
-                    "$unwind": "$sp"
-                },
-                {
-                    "$unset": [
-                        "si"
-                    ]
-                }
-            ],
-            "filter": {
-                "sp.siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
+                ],
+                "rename": "Customer",
+                "unset": [
+                    "notificationAgreement",
+                    "servingMasterId",
+                    "locationId",
+                    "contracts",
+                    "phone",
+                    "email",
+                    "avatarPictureId"
+                ]
             },
-            "rels": [
-                {
-                    "field": "serviceItemId",
-                    "from": "ServiceItem"
+            {
+                "coll": "ServicePoint",
+                "filter": {
+                    "siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
                 },
-                {
-                    "field": "servingMasterId",
-                    "from": "Employee",
-                    "optional": true
-                }
-            ],
-            "unset": ["sp"]
-        }
-    ],
-    "from_secret": false
+                "pre": [
+                    {
+                        "$lookup": {
+                            "as": "items",
+                            "foreignField": "servicePointId",
+                            "from": "ServiceItem",
+                            "localField": "id"
+                        }
+                    },
+                    {
+                        "$project": {
+                            "items": "$items"
+                        }
+                    },
+                    {
+                        "$unwind": "$items"
+                    },
+                    {
+                        "$match": {
+                            "items.servingMasterId": {
+                                "$ne": null
+                            }
+                        }
+                    },
+                    {
+                        "$group": {
+                            "_id": "$_id",
+                            "masterIds": {
+                                "$addToSet": "$items.servingMasterId"
+                            }
+                        }
+                    },
+                    {
+                        "$lookup": {
+                            "as": "point",
+                            "foreignField": "_id",
+                            "from": "ServicePoint",
+                            "localField": "_id"
+                        }
+                    },
+                    {
+                        "$unwind": "$point"
+                    },
+                    {
+                        "$set": {
+                            "point.masterIds": "$masterIds"
+                        }
+                    },
+                    {
+                        "$replaceRoot": {
+                            "newRoot": "$point"
+                        }
+                    },
+                    {
+                        "$lookup": {
+                            "as": "contract",
+                            "foreignField": "id",
+                            "from": "ServiceContract",
+                            "localField": "currentServiceContractId"
+                        }
+                    },
+                    {
+                        "$unwind": "$contract"
+                    },
+                    {
+                        "$lookup": {
+                            "as": "person",
+                            "foreignField": "id",
+                            "from": "Person",
+                            "localField": "contract.customerPersonId"
+                        }
+                    },
+                    {
+                        "$lookup": {
+                            "as": "entity",
+                            "foreignField": "id",
+                            "from": "LegalEntity",
+                            "localField": "contract.customerLegalEntityId"
+                        }
+                    },
+                    {
+                        "$unwind": {
+                            "path": "$entity",
+                            "preserveNullAndEmptyArrays": true
+                        }
+                    },
+                    {
+                        "$unwind": {
+                            "path": "$person",
+                            "preserveNullAndEmptyArrays": true
+                        }
+                    },
+                    {
+                        "$set": {
+                            "customer": {
+                                "$ifNull": [
+                                    "$person._id",
+                                    "$entity._id"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "$unset": [
+                            "contract",
+                            "person",
+                            "entity"
+                        ]
+                    }
+                ],
+                "rels": [
+                    {
+                        "field": "localityId",
+                        "from": "Locality",
+                        "optional": true
+                    },
+                    {
+                        "field": "streetId",
+                        "from": "Street",
+                        "optional": true
+                    }
+                ],
+                "unset": [
+                    "geo",
+                    "servingMasterId",
+                    "currentServiceContractId",
+                    "locationId",
+                    "isPaused",
+                    "isReady",
+                    "phone",
+                    "type",
+                    "gifts",
+                    "siteId"
+                ]
+            },
+            {
+                "coll": "ServiceItem",
+                "filter": {
+                    "sp.siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
+                },
+                "pre": [
+                    {
+                        "$lookup": {
+                            "as": "sp",
+                            "foreignField": "id",
+                            "from": "ServicePoint",
+                            "localField": "servicePointId"
+                        }
+                    },
+                    {
+                        "$unwind": "$sp"
+                    },
+                    {
+                        "$lookup": {
+                            "as": "fs",
+                            "foreignField": "id",
+                            "from": "FilterSystem",
+                            "localField": "filterSystemId"
+                        }
+                    },
+                    {
+                        "$unwind": "$fs"
+                    },
+                    {
+                        "$set": {
+                            "filterSystemType": "$fs._id",
+                            "guaranteePeriod": {
+                                "$ifNull": [
+                                    "$guaranteePeriod",
+                                    "$fs.guaranteePeriod"
+                                ]
+                            },
+                            "name": "$fs.name",
+                            "serviceFrequency": {
+                                "$ifNull": [
+                                    "$serviceFrequency",
+                                    "$fs.serviceFrequency"
+                                ]
+                            },
+                            "servicePrice": {
+                                "$ifNull": [
+                                    "$servicePrice",
+                                    "$fs.servicePrice"
+                                ]
+                            },
+                            "smallServicePrice": {
+                                "$ifNull": [
+                                    "$smallServicePrice",
+                                    "$fs.smallServicePrice"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "rels": [
+                    {
+                        "field": "servicePointId",
+                        "from": "ServicePoint"
+                    },
+                    {
+                        "field": "servingMasterId",
+                        "from": "Employee",
+                        "optional": true
+                    },
+                    {
+                        "field": "installingMasterId",
+                        "from": "Employee",
+                        "optional": true
+                    }
+                ],
+                "unset": [
+                    "nextServiceDate",
+                    "plannedServiceDate",
+                    "plannedServiceType",
+                    "lastServiceType",
+                    "lastServiceDate",
+                    "currentServiceContractId",
+                    "site",
+                    "sp",
+                    "fs",
+                    "filterSystemId"
+                ]
+            },
+            {
+                "coll": "Employee",
+                "filter": {
+                    "siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
+                },
+                "pre": [
+                    {
+                        "$lookup": {
+                            "as": "person",
+                            "foreignField": "id",
+                            "from": "Person",
+                            "localField": "personId"
+                        }
+                    },
+                    {
+                        "$unwind": "$person"
+                    },
+                    {
+                        "$set": {
+                            "name": {
+                                "$concat": [
+                                    "$person.firstName",
+                                    " ",
+                                    "$person.lastName"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "rename": "Master",
+                "unset": [
+                    "personId",
+                    "siteId",
+                    "accountId",
+                    "person",
+                    "info"
+                ]
+            },
+            {
+                "coll": "ContactMethod"
+            },
+            {
+                "coll": "Contact",
+                "pre": [
+                    {
+                        "$lookup": {
+                            "as": "person",
+                            "foreignField": "id",
+                            "from": "Person",
+                            "localField": "ownerXid"
+                        }
+                    },
+                    {
+                        "$lookup": {
+                            "as": "entity",
+                            "foreignField": "id",
+                            "from": "LegalEntity",
+                            "localField": "ownerXid"
+                        }
+                    },
+                    {
+                        "$set": {
+                            "customer": {
+                                "$ifNull": [
+                                    {
+                                        "$arrayElemAt": [
+                                            "$person",
+                                            0
+                                        ]
+                                    },
+                                    {
+                                        "$arrayElemAt": [
+                                            "$entity",
+                                            0
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "$set": {
+                            "customer": "$customer._id"
+                        }
+                    },
+                    {
+                        "$match": {
+                            "customer": {
+                                "$ne": null
+                            }
+                        }
+                    },
+                    {
+                        "$unset": [
+                            "person",
+                            "entity",
+                            "ownerXid"
+                        ]
+                    }
+                ],
+                "rels": [
+                    {
+                        "field": "contactMethodId",
+                        "from": "ContactMethod"
+                    }
+                ],
+                "unset": [
+                    "source"
+                ]
+            },
+            {
+                "coll": "ServiceItemService",
+                "filter": {
+                    "sp.siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
+                },
+                "pre": [
+                    {
+                        "$lookup": {
+                            "as": "si",
+                            "foreignField": "id",
+                            "from": "ServiceItem",
+                            "localField": "serviceItemId"
+                        }
+                    },
+                    {
+                        "$unwind": "$si"
+                    },
+                    {
+                        "$lookup": {
+                            "as": "sp",
+                            "foreignField": "id",
+                            "from": "ServicePoint",
+                            "localField": "si.servicePointId"
+                        }
+                    },
+                    {
+                        "$unwind": "$sp"
+                    },
+                    {
+                        "$unset": [
+                            "si"
+                        ]
+                    }
+                ],
+                "rels": [
+                    {
+                        "field": "serviceItemId",
+                        "from": "ServiceItem"
+                    },
+                    {
+                        "field": "servingMasterId",
+                        "from": "Employee",
+                        "optional": true
+                    }
+                ],
+                "unset": [
+                    "sp"
+                ]
+            },
+            {
+                "coll": "StockWithdrawing",
+                "pre": [
+                    {
+                        "$match": {
+                            "counterpartyType": "Storage"
+                        }
+                    },
+                    {
+                        "$lookup": {
+                            "as": "items",
+                            "foreignField": "stockWithdrawingId",
+                            "from": "StockWithdrawingItem",
+                            "localField": "id"
+                        }
+                    },
+                    {
+                        "$unwind": "$items"
+                    },
+                    {
+                        "$group": {
+                            "_id": "$counterpartyId",
+                            "articles": {
+                                "$addToSet": "$items.articleId"
+                            },
+                            "cnt": {
+                                "$sum": 1
+                            },
+                            "md": {
+                                "$max": "$date"
+                            }
+                        }
+                    },
+                    {
+                        "$lookup": {
+                            "as": "s",
+                            "foreignField": "id",
+                            "from": "Storage",
+                            "localField": "_id"
+                        }
+                    },
+                    {
+                        "$unwind": "$s"
+                    },
+                    {
+                        "$match": {
+                            "s.type": "personal"
+                        }
+                    },
+                    {
+                        "$set": {
+                            "storage": "$s.id"
+                        }
+                    },
+                    {
+                        "$unwind": "$articles"
+                    },
+                    {
+                        "$group": {
+                            "_id": "$articles",
+                            "storageIds": {
+                                "$addToSet": "$storage"
+                            }
+                        }
+                    },
+                    {
+                        "$lookup": {
+                            "as": "a",
+                            "foreignField": "id",
+                            "from": "Article",
+                            "localField": "_id"
+                        }
+                    },
+                    {
+                        "$unwind": "$a"
+                    },
+                    {
+                        "$set": {
+                            "a.storageIds": "$storageIds"
+                        }
+                    },
+                    {
+                        "$replaceRoot": {
+                            "newRoot": "$a"
+                        }
+                    },
+                    {
+                        "$match": {
+                            "$materials": null
+                        }
+                    }
+                ],
+                "unset": [
+                    "barcodes",
+                    "boxes",
+                    "isCustomName",
+                    "materials",
+                    "isSKU"
+                ]
+            }
+        ]
+    }
 }

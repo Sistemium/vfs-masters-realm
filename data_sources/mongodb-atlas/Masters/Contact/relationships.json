@@ -1,0 +1,14 @@
+{
+    "contactMethod": {
+        "ref": "#/relationship/mongodb-atlas/Masters/ContactMethod",
+        "source_key": "contactMethod",
+        "foreign_key": "_id",
+        "is_list": false
+    },
+    "customer": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Customer",
+        "source_key": "customer",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}

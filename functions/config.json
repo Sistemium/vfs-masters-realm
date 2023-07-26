@@ -1,10 +1,5 @@
 [
     {
-        "name": "onUserCreation",
-        "private": false,
-        "run_as_system": true
-    },
-    {
         "name": "resetFunc",
         "private": true
     },
@@ -22,5 +17,10 @@
         "private": true,
         "run_as_system": true,
         "disable_arg_logs": true
+    },
+    {
+        "name": "onUserCreation",
+        "private": false,
+        "run_as_system": true
     }
 ]
