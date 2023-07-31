@@ -33,27 +33,18 @@
             "search": false
         },
         {
-            "name": "user_create",
-            "apply_when": {},
-            "document_filters": {
-                "write": {},
-                "read": {}
-            },
-            "read": true,
-            "write": true,
-            "insert": true,
-            "delete": false,
-            "search": false
-        },
-        {
             "name": "user",
             "apply_when": {},
             "document_filters": {
                 "write": {
-                    "servingMaster": "%%user.custom_data.masterId"
+                    "servingMaster": {
+                        "%stringToOid": "%%user.custom_data.masterId"
+                    }
                 },
                 "read": {
-                    "servingMaster": "%%user.custom_data.masterId"
+                    "servingMaster": {
+                        "%stringToOid": "%%user.custom_data.masterId"
+                    }
                 }
             },
             "read": true,

@@ -504,6 +504,9 @@
         },
         {
             "coll": "ServiceItemService",
+            "filter": {
+                "sp.siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
+            },
             "pre": [
                 {
                     "$lookup": {
@@ -533,9 +536,6 @@
                     ]
                 }
             ],
-            "filter": {
-                "sp.siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
-            },
             "rels": [
                 {
                     "field": "serviceItemId",
@@ -553,7 +553,6 @@
         },
         {
             "coll": "StockWithdrawing",
-            "rename": "Article",
             "pre": [
                 {
                     "$match": {
@@ -652,6 +651,7 @@
                     "from": "Picture"
                 }
             ],
+            "rename": "Article",
             "unset": [
                 "barcodes",
                 "boxes",
@@ -663,6 +663,9 @@
         },
         {
             "coll": "Picture",
+            "filter": {
+                "target": "Article"
+            },
             "pre": [
                 {
                     "$lookup": {
@@ -681,9 +684,6 @@
                     }
                 }
             ],
-            "filter": {
-                "target": "Article"
-            },
             "unset": [
                 "picturesInfo",
                 "ownerXid",
