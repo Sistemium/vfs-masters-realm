@@ -1,0 +1,32 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "date": {
+            "bsonType": "string"
+        },
+        "info": {
+            "bsonType": "string"
+        },
+        "nextServiceDate": {
+            "bsonType": "string"
+        },
+        "nextServiceInfo": {
+            "bsonType": "string"
+        },
+        "serviceItem": {
+            "bsonType": "objectId"
+        },
+        "serviceSchema": {
+            "bsonType": "bool"
+        },
+        "servingMaster": {
+            "bsonType": "objectId"
+        },
+        "type": {
+            "bsonType": "string"
+        }
+    },
+    "title": "ServiceItemService"
+}
