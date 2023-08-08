@@ -1,0 +1,35 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "avatarPicture": {
+            "bsonType": "objectId"
+        },
+        "code": {
+            "bsonType": "string"
+        },
+        "measureId": {
+            "bsonType": "string"
+        },
+        "measureUnitId": {
+            "bsonType": "string"
+        },
+        "name": {
+            "bsonType": "string"
+        },
+        "packageTypeId": {
+            "bsonType": "string"
+        },
+        "storageIds": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "string"
+            }
+        },
+        "unitsInPackage": {
+            "bsonType": "int"
+        }
+    },
+    "title": "Article"
+}
