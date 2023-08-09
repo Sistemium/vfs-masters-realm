@@ -1,1 +1,8 @@
-{}
+{
+    "avatarPicture": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Picture",
+        "source_key": "avatarPicture",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}
