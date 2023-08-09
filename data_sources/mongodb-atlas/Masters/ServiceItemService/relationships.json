@@ -1,1 +1,14 @@
-{}
+{
+    "serviceItem": {
+        "ref": "#/relationship/mongodb-atlas/Masters/ServiceItem",
+        "source_key": "serviceItem",
+        "foreign_key": "_id",
+        "is_list": false
+    },
+    "servingMaster": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Master",
+        "source_key": "servingMaster",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}
