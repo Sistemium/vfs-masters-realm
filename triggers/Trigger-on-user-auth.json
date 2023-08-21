@@ -1,4 +1,5 @@
 {
+    "id": "647741c232932004f178d9ae",
     "name": "Trigger-on-user-auth",
     "type": "AUTHENTICATION",
     "config": {
