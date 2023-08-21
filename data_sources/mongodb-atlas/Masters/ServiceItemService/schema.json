@@ -4,12 +4,11 @@
             "bsonType": "objectId"
         },
         "consumed": {
-            "bsonType": "object",
-            "properties": {},
             "additionalProperties": {
                 "bsonType": "double"
-            }
-        },
+            },
+            "bsonType": "object",
+            "properties": {}
         },
         "date": {
             "bsonType": "string"
