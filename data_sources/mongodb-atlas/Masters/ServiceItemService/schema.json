@@ -3,6 +3,10 @@
         "_id": {
             "bsonType": "objectId"
         },
+        "consumed": {
+            "bsonType": "object",
+            "properties": {}
+        },
         "date": {
             "bsonType": "string"
         },
