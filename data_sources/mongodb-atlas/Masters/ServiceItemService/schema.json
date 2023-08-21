@@ -5,7 +5,11 @@
         },
         "consumed": {
             "bsonType": "object",
-            "properties": {}
+            "properties": {},
+            "additionalProperties": {
+                "bsonType": "double"
+            }
+        },
         },
         "date": {
             "bsonType": "string"
