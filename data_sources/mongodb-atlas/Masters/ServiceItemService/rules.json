@@ -37,14 +37,10 @@
             "apply_when": {},
             "document_filters": {
                 "write": {
-                    "servingMaster": {
-                        "%stringToOid": "%%user.custom_data.masterId"
-                    }
+                    "servingMaster": "%%user.custom_data.masterId"
                 },
                 "read": {
-                    "servingMaster": {
-                        "%stringToOid": "%%user.custom_data.masterId"
-                    }
+                    "servingMaster": "%%user.custom_data.masterId"
                 }
             },
             "read": true,
