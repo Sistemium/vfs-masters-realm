@@ -30,7 +30,7 @@
         "masterIds": {
             "bsonType": "array",
             "items": {
-                "bsonType": "string"
+                "bsonType": "objectId"
             }
         },
         "name": {
