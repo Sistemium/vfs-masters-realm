@@ -190,10 +190,21 @@
                     }
                 },
                 {
+                    "$lookup": {
+                        "as": "emp",
+                        "foreignField": "id",
+                        "from": "Employee",
+                        "localField": "items.servingMasterId"
+                    }
+                },
+                {
+                    "$unwind": "$emp"
+                },
+                {
                     "$group": {
                         "_id": "$_id",
                         "masterIds": {
-                            "$addToSet": "$items.servingMasterId"
+                            "$addToSet": "$emp._id"
                         }
                     }
                 },
