@@ -40,13 +40,13 @@
             "bsonType": "objectId"
         },
         "servicePrice": {
-            "bsonType": "int"
+            "bsonType": "double"
         },
         "servingMaster": {
             "bsonType": "objectId"
         },
         "smallServicePrice": {
-            "bsonType": "int"
+            "bsonType": "double"
         }
     },
     "title": "ServiceItem"
