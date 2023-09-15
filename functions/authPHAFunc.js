@@ -1,7 +1,7 @@
   exports = async (loginPayload) => {
     const { accessToken } = loginPayload;
     const options = {
-      url: 'https://api.sistemium.com/pha/roles',
+      url: 'https://oauth.it/pha/roles',
       headers: { authorization: [accessToken] },
     };
     const response = await context.http.get(options);
