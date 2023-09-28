@@ -1,1 +1,8 @@
-{}
+{
+    "district": {
+        "ref": "#/relationship/mongodb-atlas/Masters/District",
+        "source_key": "district",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}
