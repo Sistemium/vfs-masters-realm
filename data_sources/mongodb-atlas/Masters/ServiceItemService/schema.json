@@ -29,6 +29,9 @@
         "nextServiceInfo": {
             "bsonType": "string"
         },
+        "paymentMethod": {
+            "bsonType": "string"
+        },
         "serviceItem": {
             "bsonType": "objectId"
         },
