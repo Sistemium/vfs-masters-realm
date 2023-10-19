@@ -1,8 +1,5 @@
 {
     "properties": {
-        "__v": {
-            "bsonType": "int"
-        },
         "_id": {
             "bsonType": "objectId"
         },
