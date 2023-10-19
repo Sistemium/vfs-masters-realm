@@ -1,0 +1,45 @@
+{
+    "name": "InitPostProcess",
+    "value": [
+        {
+            "name": "Customer",
+            "pipeline": [
+                {
+                    "$lookup": {
+                        "from": "ServicePoint",
+                        "localField": "_id",
+                        "foreignField": "customer",
+                        "as": "points"
+                    }
+                },
+                {
+                    "$set": {
+                        "masterIds": {
+                            "$reduce": {
+                                "input": "$points.masterIds",
+                                "initialValue": [],
+                                "in": {
+                                    "$setUnion": [
+                                        "$$value",
+                                        "$$this"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "$unset": [
+                        "points"
+                    ]
+                },
+                {
+                    "$merge": {
+                        "into": "Customer"
+                    }
+                }
+            ]
+        }
+    ],
+    "from_secret": false
+}
