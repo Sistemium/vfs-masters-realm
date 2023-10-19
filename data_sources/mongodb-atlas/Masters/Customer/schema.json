@@ -1,5 +1,8 @@
 {
     "properties": {
+        "__v": {
+            "bsonType": "int"
+        },
         "_id": {
             "bsonType": "objectId"
         },
@@ -23,6 +26,12 @@
         },
         "locality": {
             "bsonType": "objectId"
+        },
+        "masterIds": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
         },
         "name": {
             "bsonType": "string"
