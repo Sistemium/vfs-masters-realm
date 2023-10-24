@@ -161,9 +161,27 @@
             ]
         },
         {
+            "coll": "Site",
+            "filter": {
+                "siteId": {
+                    "$in": [
+                        "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49",
+                        "805b2850-ba6f-4231-b531-48773134a089",
+                        "549984fd-afb9-4386-9dc0-9d8664f134d5"
+                    ]
+                }
+            }
+        },
+        {
             "coll": "ServicePoint",
             "filter": {
-                "siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
+                "siteId": {
+                    "$in": [
+                        "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49",
+                        "805b2850-ba6f-4231-b531-48773134a089",
+                        "549984fd-afb9-4386-9dc0-9d8664f134d5"
+                    ]
+                }
             },
             "pre": [
                 {
@@ -296,6 +314,10 @@
                     "field": "streetId",
                     "from": "Street",
                     "optional": true
+                },
+                {
+                    "field": "siteId",
+                    "from": "Site"
                 }
             ],
             "unset": [
@@ -307,14 +329,19 @@
                 "isReady",
                 "phone",
                 "type",
-                "gifts",
-                "siteId"
+                "gifts"
             ]
         },
         {
             "coll": "ServiceItem",
             "filter": {
-                "sp.siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
+                "sp.siteId": {
+                    "$in": [
+                        "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49",
+                        "805b2850-ba6f-4231-b531-48773134a089",
+                        "549984fd-afb9-4386-9dc0-9d8664f134d5"
+                    ]
+                }
             },
             "pre": [
                 {
@@ -401,9 +428,6 @@
         },
         {
             "coll": "Employee",
-            "filter": {
-                "siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
-            },
             "pre": [
                 {
                     "$lookup": {
@@ -428,10 +452,15 @@
                     }
                 }
             ],
+            "rels": [
+                {
+                    "field": "siteId",
+                    "from": "Site"
+                }
+            ],
             "rename": "Master",
             "unset": [
                 "personId",
-                "siteId",
                 "accountId",
                 "person",
                 "info"
@@ -516,7 +545,13 @@
         {
             "coll": "ServiceItemService",
             "filter": {
-                "sp.siteId": "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49"
+                "sp.siteId": {
+                    "$in": [
+                        "2b1f36e3-8506-451f-9cfa-d62bf8e0aa49",
+                        "805b2850-ba6f-4231-b531-48773134a089",
+                        "549984fd-afb9-4386-9dc0-9d8664f134d5"
+                    ]
+                }
             },
             "pre": [
                 {
