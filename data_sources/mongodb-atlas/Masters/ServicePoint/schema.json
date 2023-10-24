@@ -24,6 +24,9 @@
         "info": {
             "bsonType": "string"
         },
+        "isDeleted": {
+            "bsonType": "bool"
+        },
         "locality": {
             "bsonType": "objectId"
         },
@@ -35,6 +38,9 @@
         },
         "name": {
             "bsonType": "string"
+        },
+        "site": {
+            "bsonType": "objectId"
         },
         "street": {
             "bsonType": "objectId"

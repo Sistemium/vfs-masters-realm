@@ -11,6 +11,12 @@
         "foreign_key": "_id",
         "is_list": false
     },
+    "site": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Site",
+        "source_key": "site",
+        "foreign_key": "_id",
+        "is_list": false
+    },
     "street": {
         "ref": "#/relationship/mongodb-atlas/Masters/Street",
         "source_key": "street",

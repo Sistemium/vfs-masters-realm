@@ -5,6 +5,9 @@
         },
         "name": {
             "bsonType": "string"
+        },
+        "site": {
+            "bsonType": "objectId"
         }
     },
     "title": "Master"

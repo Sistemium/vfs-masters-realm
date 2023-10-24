@@ -1,1 +1,8 @@
-{}
+{
+    "site": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Site",
+        "source_key": "site",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}
