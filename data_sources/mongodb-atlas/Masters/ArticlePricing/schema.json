@@ -1,0 +1,20 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "date": {
+            "bsonType": "string"
+        },
+        "master": {
+            "bsonType": "objectId"
+        },
+        "price": {
+            "bsonType": "int"
+        },
+        "site": {
+            "bsonType": "objectId"
+        }
+    },
+    "title": "ArticlePricing"
+}
