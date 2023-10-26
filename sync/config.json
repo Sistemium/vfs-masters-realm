@@ -15,5 +15,10 @@
         "name",
         "masterIds",
         "servingMaster"
-    ]
+    ],
+    "collection_queryable_fields_names": {
+        "ArticlePricing": [
+            "master"
+        ]
+    }
 }
