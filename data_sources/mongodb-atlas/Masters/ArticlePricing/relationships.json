@@ -1,4 +1,10 @@
 {
+    "article": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Article",
+        "source_key": "article",
+        "foreign_key": "_id",
+        "is_list": false
+    },
     "master": {
         "ref": "#/relationship/mongodb-atlas/Masters/Master",
         "source_key": "master",

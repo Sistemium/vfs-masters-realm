@@ -3,6 +3,9 @@
         "_id": {
             "bsonType": "objectId"
         },
+        "article": {
+            "bsonType": "objectId"
+        },
         "date": {
             "bsonType": "string"
         },
