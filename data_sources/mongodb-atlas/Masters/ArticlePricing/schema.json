@@ -13,7 +13,7 @@
             "bsonType": "objectId"
         },
         "price": {
-            "bsonType": "int"
+            "bsonType": "double"
         },
         "site": {
             "bsonType": "objectId"
