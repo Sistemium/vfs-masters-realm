@@ -17,9 +17,15 @@ exports = async function(changeEvent) {
   let targetCollection = targetDatabase.collection(sourceCollection);
   
   try {
+    const currentTime = new Date();
+    const ctsString = currentTime.toISOString().replace('T', ' ').replace('Z', '');
+    const bsonTimestamp = new mongodb.BSON.Timestamp(0, Math.floor(currentTime / 1000));
+    
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
       newDocument.id = uuidv4();
+      newDocument.cts = ctsString;
+      newDocument.ts = bsonTimestamp;
       
       await targetCollection.insertOne(newDocument);
       console.log(`Document inserted in ${TARGET_DB} database: ${newDocument._id}`);
@@ -27,6 +33,7 @@ exports = async function(changeEvent) {
       const updateDescription = changeEvent.updateDescription;
       const updatedFields = updateDescription.updatedFields;
       const removedFields = updateDescription.removedFields;
+      updatedFields.ts = bsonTimestamp;
       const hasChanges = Object.keys(updatedFields).length > 0 || removedFields.length > 0;
 
       if (hasChanges) {
