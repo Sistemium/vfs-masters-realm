@@ -17,29 +17,29 @@ exports = async function(changeEvent) {
   let targetCollection = targetDatabase.collection(sourceCollection);
   
   try {
-    const currentTime = new Date();
-    const ctsString = currentTime.toISOString().replace('T', ' ').replace('Z', '');
-    const bsonTimestamp = new mongodb.BSON.Timestamp(0, Math.floor(currentTime / 1000));
-    
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
-      newDocument.id = uuidv4();
-      newDocument.cts = ctsString;
-      newDocument.ts = bsonTimestamp;
+      newDocument.id = uuidv4(); // Add UUID to the new document
       
-      await targetCollection.insertOne(newDocument);
+      // Use the $currentDate operator to add a cts field with the current timestamp as a Date
+      await targetCollection.insertOne({
+        ...newDocument,
+        cts: { $type: "timestamp" } // This will be converted to a Timestamp by MongoDB
+      });
       console.log(`Document inserted in ${TARGET_DB} database: ${newDocument._id}`);
     } else if (operationType === 'update') {
       const updateDescription = changeEvent.updateDescription;
       const updatedFields = updateDescription.updatedFields;
       const removedFields = updateDescription.removedFields;
-      updatedFields.ts = bsonTimestamp;
       const hasChanges = Object.keys(updatedFields).length > 0 || removedFields.length > 0;
 
       if (hasChanges) {
         await targetCollection.updateOne(
           { _id: changeEvent.documentKey._id },
-          { $set: updatedFields }
+          {
+            $set: updatedFields,
+            $currentDate: { ts: { $type: "timestamp" } } // Set the 'ts' field to the current timestamp
+          }
         );
         console.log(`Document updated in ${TARGET_DB} database: ${changeEvent.documentKey._id}`);
       } else {
