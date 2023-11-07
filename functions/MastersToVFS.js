@@ -17,7 +17,7 @@ exports = async function(changeEvent) {
   try {
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
-      newDocument.id = UUID();
+      newDocument.id = mongodb.BSON.UUID().toString();
       
       await targetCollection.insertOne(newDocument);
       console.log(`Document inserted in ${TARGET_DB} database: ${newDocument._id}`);
