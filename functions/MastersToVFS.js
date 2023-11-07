@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 exports = async function(changeEvent) {
   const ALLOWED_COLLECTIONS = ['Contact', 'ServiceItemService'];
   const TARGET_DB = 'test_vfs';
@@ -17,7 +19,7 @@ exports = async function(changeEvent) {
   try {
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
-      newDocument.id = mongodb.BSON.UUID().toString();
+      newDocument.id = uuidv4();
       
       await targetCollection.insertOne(newDocument);
       console.log(`Document inserted in ${TARGET_DB} database: ${newDocument._id}`);
