@@ -17,16 +17,21 @@ exports = async function(changeEvent) {
   let targetCollection = targetDatabase.collection(sourceCollection);
   
   try {
+    // Format current time as string
+    const currentTimeString = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
+    
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
-      newDocument.id = uuidv4(); // Add UUID to the new document
+      newDocument.id = uuidv4();
+      newDocument.cts = currentTimeString; // Set 'cts' as a string of the current timestamp
       
-      // Use the $currentDate operator to add a cts field with the current timestamp as a Date
-      await targetCollection.insertOne({
-        ...newDocument,
-        cts: { $type: "timestamp" } // This will be converted to a Timestamp by MongoDB
-      });
-      console.log(`Document inserted in ${TARGET_DB} database: ${newDocument._id}`);
+      // Insert the document and then update it to set the 'ts' field with a BSON Timestamp
+      await targetCollection.insertOne(newDocument);
+      await targetCollection.updateOne(
+        { _id: newDocument._id },
+        { $currentDate: { ts: { $type: "timestamp" } } }
+      );
+      console.log(`Document inserted in ${TARGET_DB} database with _id: ${newDocument._id}`);
     } else if (operationType === 'update') {
       const updateDescription = changeEvent.updateDescription;
       const updatedFields = updateDescription.updatedFields;
@@ -38,17 +43,17 @@ exports = async function(changeEvent) {
           { _id: changeEvent.documentKey._id },
           {
             $set: updatedFields,
-            $currentDate: { ts: { $type: "timestamp" } } // Set the 'ts' field to the current timestamp
+            $currentDate: { ts: { $type: "timestamp" } } // Update 'ts' with a BSON Timestamp
           }
         );
-        console.log(`Document updated in ${TARGET_DB} database: ${changeEvent.documentKey._id}`);
+        console.log(`Document updated in ${TARGET_DB} database with _id: ${changeEvent.documentKey._id}`);
       } else {
-        console.log(`Update ignored due to no relevant changes: ${changeEvent.documentKey._id}`);
+        console.log(`No relevant changes to update for _id: ${changeEvent.documentKey._id}`);
       }
     } else if (operationType === 'delete') {
       const docId = changeEvent.documentKey._id;
       await targetCollection.deleteOne({ _id: docId });
-      console.log(`Document deleted in ${TARGET_DB} database: ${docId}`);
+      console.log(`Document deleted from ${TARGET_DB} database with _id: ${docId}`);
     }
   } catch (err) {
     console.error(`Error with ${operationType} operation: ${err}`);
