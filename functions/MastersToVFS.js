@@ -18,19 +18,22 @@ exports = async function(changeEvent) {
   
   try {
     const currentTimeString = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
-    const currentTimestamp = new Date(); // MongoDB stores this as ISODate by default.
     
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
       newDocument.id = uuidv4();
       newDocument.cts = currentTimeString; // Set 'cts' as a string of the current timestamp
-      
+
       // Check if the document already exists
       const exists = await targetCollection.findOne({ _id: newDocument._id });
       if (!exists) {
-        newDocument.ts = currentTimestamp; // Set 'ts' to the current date and time.
-        
+        // Insert the document
         await targetCollection.insertOne(newDocument);
+        // Then immediately update it to set the 'ts' field with a BSON Timestamp
+        await targetCollection.updateOne(
+          { _id: newDocument._id },
+          { $currentDate: { ts: { $type: "timestamp" } } }
+        );
         console.log(`Document inserted in ${TARGET_DB} database with _id: ${newDocument._id}`);
       } else {
         console.log(`Document with _id: ${newDocument._id} already exists. Skipping insert.`);
@@ -42,11 +45,12 @@ exports = async function(changeEvent) {
       const hasChanges = Object.keys(updatedFields).length > 0 || removedFields.length > 0;
 
       if (hasChanges) {
+        // Update the document with new fields and set 'ts' to the current BSON Timestamp
         await targetCollection.updateOne(
           { _id: changeEvent.documentKey._id },
           {
             $set: updatedFields,
-            $currentDate: { ts: true } // Set 'ts' to the current date and time.
+            $currentDate: { ts: { $type: "timestamp" } }
           }
         );
         console.log(`Document updated in ${TARGET_DB} database with _id: ${changeEvent.documentKey._id}`);
