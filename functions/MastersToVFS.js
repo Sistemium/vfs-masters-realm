@@ -17,7 +17,6 @@ exports = async function(changeEvent) {
   let targetCollection = targetDatabase.collection(sourceCollection);
   
   try {
-    // Format current time as string
     const currentTimeString = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
     
     if (operationType === 'insert') {
@@ -25,7 +24,6 @@ exports = async function(changeEvent) {
       newDocument.id = uuidv4();
       newDocument.cts = currentTimeString; // Set 'cts' as a string of the current timestamp
       
-      // Insert the document and then update it to set the 'ts' field with a BSON Timestamp
       await targetCollection.insertOne(newDocument);
       await targetCollection.updateOne(
         { _id: newDocument._id },
