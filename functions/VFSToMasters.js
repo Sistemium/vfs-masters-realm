@@ -16,12 +16,20 @@ exports = async function(changeEvent) {
   let targetCollection = targetDatabase.collection(sourceCollection);
   
     if (operationType === 'insert') {
-      let newDocument = changeEvent.fullDocument;
-      EXCLUDED_FIELDS.forEach(field => delete newDocument[field]);
-      
-      await targetCollection.insertOne(newDocument);
-      console.log(`Document inserted in ${TARGET_DB} database: ${newDocument._id}`);
-    } else if (operationType === 'update') {
+  let newDocument = changeEvent.fullDocument;
+  EXCLUDED_FIELDS.forEach(field => delete newDocument[field]);
+  const query = { _id: newDocument._id };
+
+  const existingDocument = await targetCollection.findOne(query);
+
+  if (existingDocument) {
+    console.log(`Document with _id ${newDocument._id} already exists. Skipping insert.`);
+    return;
+  }
+
+  await targetCollection.insertOne(newDocument);
+  console.log(`Document inserted in ${TARGET_DB} database: ${newDocument._id}`);
+} else if (operationType === 'update') {
       const updateDescription = changeEvent.updateDescription;
       const updatedFields = updateDescription.updatedFields;
       const relevantChanges = Object.keys(updatedFields).some(field => !EXCLUDED_FIELDS.includes(field));

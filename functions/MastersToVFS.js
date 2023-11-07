@@ -17,33 +17,27 @@ exports = async function(changeEvent) {
   let targetCollection = targetDatabase.collection(sourceCollection);
   
   try {
-    // Format current time as string
     const currentTimeString = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
-
+    
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
-      newDocument.id = uuidv4(); // Set 'id' for the new document
-      newDocument.cts = currentTimeString; // Set 'cts' for the new document
-
-      // Insert the new document
-      await targetCollection.updateOne(
-        { _id: newDocument._id },
-        {
-          $setOnInsert: newDocument,
-          $currentDate: { ts: { $type: "timestamp" } } // Set 'ts' with a BSON Timestamp
-        },
-        { upsert: true }
-      );
-      console.log(`Document upserted in ${TARGET_DB} database with _id: ${newDocument._id}`);
+      newDocument.id = uuidv4();
+      newDocument.cts = currentTimeString;
+      
+      const existingDocument = await targetCollection.findOne({ _id: newDocument._id });
+      if (!existingDocument) {
+        await targetCollection.insertOne(newDocument);
+        console.log(`Document inserted in ${TARGET_DB} database with _id: ${newDocument._id}`);
+      } else {
+        console.log(`Document with _id: ${newDocument._id} already exists. Skip insert.`);
+      }
     } else if (operationType === 'update') {
       const updateDescription = changeEvent.updateDescription;
-      const updatedFields = updateDescription.updatedFields || {};
-      const removedFields = updateDescription.removedFields || [];
+      const updatedFields = updateDescription.updatedFields;
+      const removedFields = updateDescription.removedFields;
       const hasChanges = Object.keys(updatedFields).length > 0 || removedFields.length > 0;
 
-      // Only proceed with update if relevant fields were changed
       if (hasChanges) {
-        // Update the document with the new fields and set the 'ts' field with the current BSON timestamp
         await targetCollection.updateOne(
           { _id: changeEvent.documentKey._id },
           {
