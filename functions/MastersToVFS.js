@@ -16,7 +16,6 @@ exports = async function(changeEvent) {
   let targetDatabase = mongodb.db(TARGET_DB);
   let targetCollection = targetDatabase.collection(sourceCollection);
   
-  try {
     const currentTimeString = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
     
     if (operationType === 'insert') {
@@ -53,7 +52,4 @@ exports = async function(changeEvent) {
       await targetCollection.deleteOne({ _id: docId });
       console.log(`Document deleted from ${TARGET_DB} database with _id: ${docId}`);
     }
-  } catch (err) {
-    console.error(`Error with ${operationType} operation: ${err}`);
-  }
 };

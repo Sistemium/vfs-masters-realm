@@ -15,7 +15,6 @@ exports = async function(changeEvent) {
   let targetDatabase = mongodb.db(TARGET_DB);
   let targetCollection = targetDatabase.collection(sourceCollection);
   
-  try {
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
       EXCLUDED_FIELDS.forEach(field => delete newDocument[field]);
@@ -43,7 +42,4 @@ exports = async function(changeEvent) {
       await targetCollection.deleteOne({ _id: docId });
       console.log(`Document deleted in ${TARGET_DB} database: ${docId}`);
     }
-  } catch (err) {
-    console.error(`Error with ${operationType} operation: ${err}`);
-  }
 };
