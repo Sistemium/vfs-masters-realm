@@ -1,6 +1,6 @@
 exports = async function(changeEvent) {
   const ALLOWED_COLLECTIONS = ['Contact', 'ServiceItemService'];
-  const TARGET_DB = 'test_masters';
+  const TARGET_DB = 'test_vfs';
   
   const mongodb = context.services.get('mongodb-atlas');
   const operationType = changeEvent.operationType;
