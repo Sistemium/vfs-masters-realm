@@ -16,26 +16,34 @@ exports = async function(changeEvent) {
   let targetDatabase = mongodb.db(TARGET_DB);
   let targetCollection = targetDatabase.collection(sourceCollection);
   
+  try {
+    // Format current time as string
     const currentTimeString = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
-    
+
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
-      newDocument.id = uuidv4();
-      newDocument.cts = currentTimeString; // Set 'cts' as a string of the current timestamp
-      
-      await targetCollection.insertOne(newDocument);
+      newDocument.id = uuidv4(); // Set 'id' for the new document
+      newDocument.cts = currentTimeString; // Set 'cts' for the new document
+
+      // Insert the new document
       await targetCollection.updateOne(
         { _id: newDocument._id },
-        { $currentDate: { ts: { $type: "timestamp" } } }
+        {
+          $setOnInsert: newDocument,
+          $currentDate: { ts: { $type: "timestamp" } } // Set 'ts' with a BSON Timestamp
+        },
+        { upsert: true }
       );
-      console.log(`Document inserted in ${TARGET_DB} database with _id: ${newDocument._id}`);
+      console.log(`Document upserted in ${TARGET_DB} database with _id: ${newDocument._id}`);
     } else if (operationType === 'update') {
       const updateDescription = changeEvent.updateDescription;
-      const updatedFields = updateDescription.updatedFields;
-      const removedFields = updateDescription.removedFields;
+      const updatedFields = updateDescription.updatedFields || {};
+      const removedFields = updateDescription.removedFields || [];
       const hasChanges = Object.keys(updatedFields).length > 0 || removedFields.length > 0;
 
+      // Only proceed with update if relevant fields were changed
       if (hasChanges) {
+        // Update the document with the new fields and set the 'ts' field with the current BSON timestamp
         await targetCollection.updateOne(
           { _id: changeEvent.documentKey._id },
           {
@@ -52,4 +60,7 @@ exports = async function(changeEvent) {
       await targetCollection.deleteOne({ _id: docId });
       console.log(`Document deleted from ${TARGET_DB} database with _id: ${docId}`);
     }
+  } catch (err) {
+    console.error(`Error with ${operationType} operation: ${err}`);
+  }
 };
