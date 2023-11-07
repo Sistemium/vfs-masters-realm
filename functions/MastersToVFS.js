@@ -47,5 +47,5 @@ exports = async function(changeEvent) {
 };
 
 function generateUUID() {
-  return new mongodb.BSON.UUID().toString();
+  return new BSON.UUID().toString();
 }
