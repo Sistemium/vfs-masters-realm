@@ -1,5 +1,11 @@
 [
     {
+        "name": "initMasterDB",
+        "private": true,
+        "run_as_system": true,
+        "disable_arg_logs": true
+    },
+    {
         "name": "onUserCreation",
         "private": false,
         "run_as_system": true
@@ -18,9 +24,8 @@
         "private": true
     },
     {
-        "name": "initMasterDB",
+        "name": "MastersToVFS",
         "private": true,
-        "run_as_system": true,
-        "disable_arg_logs": true
+        "run_as_system": true
     }
 ]
