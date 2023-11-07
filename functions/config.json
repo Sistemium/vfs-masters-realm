@@ -27,5 +27,11 @@
         "name": "MastersToVFS",
         "private": true,
         "run_as_system": true
+    },
+    {
+        "name": "VFSToMasters",
+        "private": false,
+        "run_as_system": true,
+        "disable_arg_logs": true
     }
 ]

@@ -1,6 +1,6 @@
 exports = async function(changeEvent) {
   const ALLOWED_COLLECTIONS = ['Contact', 'ServiceItemService'];
-  const TARGET_DB = 'test_vfs';
+  const TARGET_DB = 'test_masters';
   const EXCLUDED_FIELDS = ['id', 'ts', 'cts', 'deviceUUID', 'deviceCts']; // Fields to exclude
   
   const mongodb = context.services.get('mongodb-atlas');
