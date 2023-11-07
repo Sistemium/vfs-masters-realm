@@ -17,7 +17,7 @@ exports = async function(changeEvent) {
   try {
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
-      newDocument.id = generateUUID();
+      newDocument.id = UUID();
       
       await targetCollection.insertOne(newDocument);
       console.log(`Document inserted in ${TARGET_DB} database: ${newDocument._id}`);
@@ -45,7 +45,3 @@ exports = async function(changeEvent) {
     console.error(`Error with ${operationType} operation: ${err}`);
   }
 };
-
-function generateUUID() {
-  return "test"
-}
