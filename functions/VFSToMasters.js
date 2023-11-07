@@ -18,7 +18,6 @@ exports = async function(changeEvent) {
   try {
     if (operationType === 'insert') {
       let newDocument = changeEvent.fullDocument;
-      // Remove excluded fields from the new document
       EXCLUDED_FIELDS.forEach(field => delete newDocument[field]);
       
       await targetCollection.insertOne(newDocument);
@@ -28,9 +27,7 @@ exports = async function(changeEvent) {
       const updatedFields = updateDescription.updatedFields;
       const relevantChanges = Object.keys(updatedFields).some(field => !EXCLUDED_FIELDS.includes(field));
 
-      // Only proceed with update if relevant fields were changed
       if (relevantChanges) {
-        // Remove excluded fields from the update
         EXCLUDED_FIELDS.forEach(field => delete updatedFields[field]);
         
         await targetCollection.updateOne(
