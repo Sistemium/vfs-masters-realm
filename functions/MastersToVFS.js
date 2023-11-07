@@ -47,5 +47,5 @@ exports = async function(changeEvent) {
 };
 
 function generateUUID() {
-  return new BSON.UUID().toString();
+  return "test"
 }
