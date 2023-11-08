@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
 exports = async function(changeEvent) {
-  const toTransfer = context.values.get("SourceCollectionMap");
+  const toTransfer = context.values.get('SourceCollectionMap');
   const ALLOWED_COLLECTIONS = toTransfer.map(entry => entry.coll);
   const TARGET_DB = 'test_vfs';
 
@@ -19,64 +19,63 @@ exports = async function(changeEvent) {
 
   try {
     const currentTimeString = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
+    let session = null;
 
     if (operationType === 'insert') {
-      const session = await mongodb.startSession();
-      const transactionOptions = {
-        readPreference: { readConcern: { level: 'local' } },
-        writeConcern: { w: 1 }
-      };
-      const transaction = await session.startTransaction(transactionOptions);
+      session = await mongodb.startSession();
+    }
 
-      try {
+    await session.withTransaction(async () => {
+      if (operationType === 'insert') {
         let newDocument = changeEvent.fullDocument;
         newDocument.id = uuidv4();
         newDocument.cts = currentTimeString;
-        const exists = await targetCollection.findOne({ _id: newDocument._id });
+        const exists = await targetCollection.findOne({ _id: newDocument._id }, { session });
 
         if (!exists) {
-          await targetCollection.insertOne(newDocument);
+          await targetCollection.insertOne(newDocument, { session });
           await targetCollection.updateOne(
             { _id: newDocument._id },
-            { $currentDate: { ts: { $type: "timestamp" } } }
+            { $currentDate: { ts: { $type: "timestamp" } } },
+            { session }
           );
           console.log(`Document inserted in ${TARGET_DB} database with _id: ${newDocument._id}`);
         } else {
           console.log(`Document with _id: ${newDocument._id} already exists. Skipping insert.`);
         }
+      } else if (operationType === 'update') {
+        const updateDescription = changeEvent.updateDescription;
+        const updatedFields = updateDescription.updatedFields;
+        const removedFields = updateDescription.removedFields;
+        const hasChanges = Object.keys(updatedFields).length > 0 || removedFields.length > 0;
 
-        await transaction.commit();
-      } catch (err) {
-        console.error(`Error with ${operationType} operation: ${err}`);
-        await transaction.abort();
-      } finally {
-        await session.endSession();
+        if (hasChanges) {
+          await targetCollection.updateOne(
+            { _id: changeEvent.documentKey._id },
+            {
+              $set: updatedFields,
+              $currentDate: { ts: { $type: "timestamp" } }
+            }
+          );
+          console.log(`Document updated in ${TARGET_DB} database with _id: ${changeEvent.documentKey._id}`);
+        } else {
+          console.log(`No relevant changes to update for _id: ${changeEvent.documentKey._id}`);
+        }
+      } else if (operationType === 'delete') {
+        const docId = changeEvent.documentKey._id;
+        await targetCollection.deleteOne({ _id: docId });
+        console.log(`Document deleted from ${TARGET_DB} database with _id: ${docId}`);
       }
-    } else if (operationType === 'update') {
-      const updateDescription = changeEvent.updateDescription;
-      const updatedFields = updateDescription.updatedFields;
-      const removedFields = updateDescription.removedFields;
-      const hasChanges = Object.keys(updatedFields).length > 0 || removedFields.length > 0;
+    });
 
-      if (hasChanges) {
-        await targetCollection.updateOne(
-          { _id: changeEvent.documentKey._id },
-          {
-            $set: updatedFields,
-            $currentDate: { ts: { $type: "timestamp" } }
-          }
-        );
-        console.log(`Document updated in ${TARGET_DB} database with _id: ${changeEvent.documentKey._id}`);
-      } else {
-        console.log(`No relevant changes to update for _id: ${changeEvent.documentKey._id}`);
-      }
-    } else if (operationType === 'delete') {
-      const docId = changeEvent.documentKey._id;
-      await targetCollection.deleteOne({ _id: docId });
-      console.log(`Document deleted from ${TARGET_DB} database with _id: ${docId}`);
+    if (session) {
+      await session.endSession();
     }
   } catch (err) {
     console.error(`Error with ${operationType} operation: ${err}`);
+    if (session) {
+      await session.abortTransaction();
+    }
     throw err;
   }
 };
