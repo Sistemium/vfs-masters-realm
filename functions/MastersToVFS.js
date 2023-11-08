@@ -47,9 +47,8 @@ exports = async function(changeEvent) {
 
         await transaction.commit();
       } catch (err) {
-        await transaction.abort();
         console.error(`Error with ${operationType} operation: ${err}`);
-        throw err;
+        await transaction.abort();
       } finally {
         await session.endSession();
       }
