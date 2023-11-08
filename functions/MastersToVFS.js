@@ -60,31 +60,14 @@ exports = async function(changeEvent) {
       const hasChanges = Object.keys(updatedFields).length > 0 || removedFields.length > 0;
 
       if (hasChanges) {
-        const session = await mongodb.startSession();
-        const transactionOptions = {
-          readPreference: { readConcern: { level: 'local' } },
-          writeConcern: { w: 1 }
-        };
-        const transaction = await session.startTransaction(transactionOptions);
-
-        try {
-          await targetCollection.updateOne(
-            { _id: changeEvent.documentKey._id },
-            {
-              $set: updatedFields,
-              $currentDate: { ts: { $type: "timestamp" } }
-            }
-          );
-          console.log(`Document updated in ${TARGET_DB} database with _id: ${changeEvent.documentKey._id}`);
-
-          await transaction.commit();
-        } catch (err) {
-          await transaction.abort();
-          console.error(`Error with ${operationType} operation: ${err}`);
-          throw err;
-        } finally {
-          await session.endSession();
-        }
+        await targetCollection.updateOne(
+          { _id: changeEvent.documentKey._id },
+          {
+            $set: updatedFields,
+            $currentDate: { ts: { $type: "timestamp" } }
+          }
+        );
+        console.log(`Document updated in ${TARGET_DB} database with _id: ${changeEvent.documentKey._id}`);
       } else {
         console.log(`No relevant changes to update for _id: ${changeEvent.documentKey._id}`);
       }
