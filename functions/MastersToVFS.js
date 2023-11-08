@@ -17,6 +17,7 @@ exports = async function(changeEvent) {
   let targetCollection = targetDatabase.collection(sourceCollection);
   
   try {
+    throw new Error('This is a test error.');
     const currentTimeString = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
     
     if (operationType === 'insert') {
@@ -59,5 +60,6 @@ exports = async function(changeEvent) {
     }
   } catch (err) {
     console.error(`Error with ${operationType} operation: ${err}`);
+    throw err;
   }
 };
