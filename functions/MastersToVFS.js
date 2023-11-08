@@ -1,7 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
 
 exports = async function(changeEvent) {
-  const ALLOWED_COLLECTIONS = ['Contact', 'ServiceItemService'];
+  const toTransfer = context.values.get("SourceCollectionMap");
+  const ALLOWED_COLLECTIONS = toTransfer.map(entry => entry.coll);
   const TARGET_DB = 'test_vfs';
   
   const mongodb = context.services.get('mongodb-atlas');
@@ -17,7 +18,6 @@ exports = async function(changeEvent) {
   let targetCollection = targetDatabase.collection(sourceCollection);
   
   try {
-    throw new Error('This is a test error.');
     const currentTimeString = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
     
     if (operationType === 'insert') {
