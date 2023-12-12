@@ -5,10 +5,10 @@ exports = function(changeEvent) {
 
   let servicePointId;
 
-  if (changeEvent.ns.coll === "ServiceItem") {
-    servicePointId = changeEvent.fullDocument.servicePoint;
-  } else if (changeEvent.ns.coll === "ServicePoint") {
-    servicePointId = changeEvent.documentKey._id;
+  if (changeEvent.operationType === "delete") {
+    servicePointId = changeEvent.fullDocumentBeforeChange.servicePoint;
+  } else if (changeEvent.ns.coll === "ServiceItem" || changeEvent.ns.coll === "ServicePoint") {
+    servicePointId = changeEvent.fullDocument.servicePoint || changeEvent.documentKey._id;
   } else {
     return;
   }
