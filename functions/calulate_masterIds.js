@@ -4,12 +4,21 @@ exports = function(changeEvent) {
   const collectionCustomer = context.services.get("mongodb-atlas").db("Masters").collection("Customer");
 
   let servicePointId;
-
+  
   if (changeEvent.operationType === "delete") {
-    servicePointId = changeEvent.fullDocumentBeforeChange.servicePoint;
-  } else if (changeEvent.ns.coll === "ServiceItem" || changeEvent.ns.coll === "ServicePoint") {
-    servicePointId = changeEvent.fullDocument.servicePoint || changeEvent.documentKey._id;
+    if (changeEvent.ns.coll === "ServiceItem") {
+      // Use the pre-image to get the servicePoint ID for deleted ServiceItems
+      servicePointId = changeEvent.fullDocumentBeforeChange.servicePoint;
+    } else if (changeEvent.ns.coll === "ServicePoint") {
+      // For deleted ServicePoints, the ID is in the documentKey
+      servicePointId = changeEvent.documentKey._id;
+    }
   } else {
+    // For non-delete operations
+    servicePointId = changeEvent.fullDocument.servicePoint || changeEvent.documentKey._id;
+  }
+
+  if (!servicePointId) {
     return;
   }
 
@@ -20,21 +29,21 @@ exports = function(changeEvent) {
 
       return collectionServicePoint.findOne({ _id: servicePointId })
         .then(servicePoint => {
-          const customerId = servicePoint.customer;
-          
-          return collectionServicePoint.find({ customer: customerId }).toArray()
-            .then(servicePoints => {
-              let allMasterIds = servicePoints.reduce((acc, sp) => {
-                if (sp.masterIds) {
-                  acc = acc.concat(sp.masterIds);
-                }
-                return acc;
-              }, []);
+          const customerId = servicePoint ? servicePoint.customer : null;
+          if (customerId) {
+            return collectionServicePoint.find({ customer: customerId }).toArray()
+              .then(servicePoints => {
+                let allMasterIds = servicePoints.reduce((acc, sp) => {
+                  if (sp.masterIds) {
+                    acc = acc.concat(sp.masterIds);
+                  }
+                  return acc;
+                }, []);
 
-              allMasterIds = [...new Set(allMasterIds)];
-
-              collectionCustomer.updateOne({ _id: customerId }, { $set: { masterIds: allMasterIds } });
-            });
+                allMasterIds = [...new Set(allMasterIds)];
+                collectionCustomer.updateOne({ _id: customerId }, { $set: { masterIds: allMasterIds } });
+              });
+          }
         });
     });
 };
