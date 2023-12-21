@@ -33,6 +33,10 @@ exports = function(changeEvent) {
   return collectionServiceItem.find({ servicePoint: servicePointId }).toArray()
     .then(serviceItems => {
       console.log(`Fetched service items for servicePointId ${servicePointId}:`, JSON.stringify(serviceItems));
+      if (serviceItems.length === 0) {
+        console.log(`No service items found for servicePointId ${servicePointId}. Exiting function.`);
+        return; // Exit the function
+      }
       const masterIds = serviceItems.map(item => item.servingMaster);
       console.log(`Mapped masterIds for update:`, JSON.stringify(masterIds));
 
