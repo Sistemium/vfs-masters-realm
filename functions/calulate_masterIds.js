@@ -37,7 +37,7 @@ exports = function(changeEvent) {
         console.log(`No service items found for servicePointId ${servicePointId}. Exiting function.`);
         return; // Exit the function
       }
-      const masterIds = serviceItems.map(item => item.servingMaster);
+      const masterIds = serviceItems.map(item => item.servingMaster).filter(id => id !== null);
       console.log(`Mapped masterIds for update:`, JSON.stringify(masterIds));
 
       console.log(`Updating ServicePoint collection for servicePointId ${servicePointId} with masterIds.`);
@@ -62,7 +62,7 @@ exports = function(changeEvent) {
                       return acc;
                     }, []);
 
-                    allMasterIds = [...new Set(allMasterIds)];
+                    allMasterIds = [...new Set(allMasterIds)].filter(id => id !== null);
                     console.log(`Consolidated masterIds for Customer update:`, JSON.stringify(allMasterIds));
 
                     return collectionCustomer.updateOne({ _id: customerId }, { $set: { masterIds: allMasterIds } })
