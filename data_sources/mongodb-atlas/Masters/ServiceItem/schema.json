@@ -24,6 +24,9 @@
         "installingPrice": {
             "bsonType": "double"
         },
+        "isMasterOwned": {
+            "bsonType": "bool"
+        },
         "name": {
             "bsonType": "string"
         },
