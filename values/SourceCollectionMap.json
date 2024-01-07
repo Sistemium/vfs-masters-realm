@@ -467,6 +467,40 @@
             ]
         },
         {
+            "coll": "ServicePointContact",
+            "pre": [
+                {
+                    "$lookup": {
+                        "as": "person",
+                        "foreignField": "id",
+                        "from": "Person",
+                        "localField": "personId"
+                    }
+                },
+                {
+                    "$unwind": "$person"
+                },
+                {
+                    "$set": {
+                        "customer": "person._id"
+                    }
+                }
+            ],
+            "rels": [
+                {
+                    "field": "siteId",
+                    "from": "Site"
+                }
+            ],
+            "rename": "Master",
+            "unset": [
+                "personId",
+                "accountId",
+                "person",
+                "info"
+            ]
+        },
+        {
             "coll": "ContactMethod"
         },
         {
