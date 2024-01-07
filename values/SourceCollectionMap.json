@@ -492,7 +492,7 @@
                     "from": "ServicePoint"
                 }
             ],
-            "$unset": [
+            "unset": [
                 "person"
             ]
         },
