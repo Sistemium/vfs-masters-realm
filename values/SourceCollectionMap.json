@@ -482,7 +482,7 @@
                 },
                 {
                     "$set": {
-                        "customer": "person._id"
+                        "customer": "$person._id"
                     }
                 }
             ],
@@ -490,6 +490,11 @@
                 {
                     "field": "servicePointId",
                     "from": "ServicePoint"
+                },
+                {
+                    "$unset": [
+                        "person"
+                    ]
                 }
             ]
         },
