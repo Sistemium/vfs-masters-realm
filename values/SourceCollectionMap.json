@@ -488,16 +488,9 @@
             ],
             "rels": [
                 {
-                    "field": "siteId",
-                    "from": "Site"
+                    "field": "servicePointId",
+                    "from": "ServicePoint"
                 }
-            ],
-            "rename": "Master",
-            "unset": [
-                "personId",
-                "accountId",
-                "person",
-                "info"
             ]
         },
         {
