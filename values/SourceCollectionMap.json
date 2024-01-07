@@ -490,12 +490,10 @@
                 {
                     "field": "servicePointId",
                     "from": "ServicePoint"
-                },
-                {
-                    "$unset": [
-                        "person"
-                    ]
                 }
+            ],
+            "$unset": [
+                "person"
             ]
         },
         {
