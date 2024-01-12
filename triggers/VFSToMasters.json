@@ -1,26 +1,25 @@
 {
-    "id": "654a3486137cb70aba4b9df1",
     "name": "VFSToMasters",
     "type": "DATABASE",
+    "disabled": true,
     "config": {
+        "collection": "",
+        "database": "test_vfs",
+        "full_document": false,
+        "full_document_before_change": false,
+        "match": {},
+        "maximum_throughput": false,
         "operation_types": [
             "INSERT",
             "UPDATE",
             "DELETE"
         ],
-        "database": "test_vfs",
-        "collection": "",
-        "service_name": "mongodb-atlas",
-        "match": {},
         "project": {},
-        "full_document": false,
-        "full_document_before_change": false,
-        "unordered": false,
+        "service_name": "mongodb-atlas",
         "skip_catchup_events": false,
         "tolerate_resume_errors": false,
-        "maximum_throughput": false
+        "unordered": false
     },
-    "disabled": true,
     "event_processors": {
         "FUNCTION": {
             "config": {

@@ -1,4 +1,5 @@
 {
+    "title": "Customer",
     "properties": {
         "_id": {
             "bsonType": "objectId"
@@ -45,6 +46,5 @@
         "vatCode": {
             "bsonType": "string"
         }
-    },
-    "title": "Customer"
+    }
 }

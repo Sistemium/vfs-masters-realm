@@ -12,31 +12,31 @@
     "custom-function": {
         "name": "custom-function",
         "type": "custom-function",
+        "disabled": false,
         "config": {
             "authFunctionName": "authPHAFunc"
-        },
-        "disabled": false
+        }
     },
     "local-userpass": {
         "name": "local-userpass",
         "type": "local-userpass",
+        "disabled": false,
         "config": {
             "autoConfirm": true,
             "resetFunctionName": "resetFunc",
             "runConfirmationFunction": false,
             "runResetFunction": true
-        },
-        "disabled": false
+        }
     },
     "oauth2-apple": {
         "name": "oauth2-apple",
         "type": "oauth2-apple",
+        "disabled": false,
         "config": {
             "clientId": "com.sistemium.vfsMaster"
         },
         "secret_config": {
             "clientSecret": "jvt_secret"
-        },
-        "disabled": false
+        }
     }
 }

@@ -1,6 +1,6 @@
 {
-    "collection": "User",
     "database": "Masters",
+    "collection": "User",
     "roles": [
         {
             "name": "admin",
@@ -8,46 +8,46 @@
                 "%%user.custom_data.isAdmin": true
             },
             "document_filters": {
-                "write": true,
-                "read": true
+                "read": true,
+                "write": true
             },
-            "read": true,
-            "write": true,
             "insert": true,
             "delete": true,
-            "search": true
+            "search": true,
+            "read": true,
+            "write": true
         },
         {
             "name": "user",
             "apply_when": {},
             "document_filters": {
-                "write": {
-                    "_id": "%%user.id"
-                },
                 "read": {
                     "_id": "%%user.id"
-                }
-            },
-            "fields": {
-                "data": {
-                    "write": true,
-                    "read": true
                 },
-                "name": {
-                    "write": true,
-                    "read": true
-                },
-                "ts": {
-                    "write": true,
-                    "read": true
+                "write": {
+                    "_id": "%%user.id"
                 }
             },
             "insert": true,
             "delete": true,
             "search": true,
+            "fields": {
+                "data": {
+                    "read": true,
+                    "write": true
+                },
+                "name": {
+                    "read": true,
+                    "write": true
+                },
+                "ts": {
+                    "read": true,
+                    "write": true
+                }
+            },
             "additional_fields": {
-                "write": false,
-                "read": true
+                "read": true,
+                "write": false
             }
         }
     ]

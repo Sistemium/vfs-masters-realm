@@ -1,4 +1,5 @@
 {
+    "title": "ServiceItem",
     "properties": {
         "_id": {
             "bsonType": "objectId"
@@ -24,9 +25,6 @@
         "installingPrice": {
             "bsonType": "double"
         },
-        "isMasterOwned": {
-            "bsonType": "bool"
-        },
         "name": {
             "bsonType": "string"
         },
@@ -50,7 +48,9 @@
         },
         "smallServicePrice": {
             "bsonType": "double"
+        },
+        "isMasterOwned": {
+            "bsonType": "bool"
         }
-    },
-    "title": "ServiceItem"
+    }
 }

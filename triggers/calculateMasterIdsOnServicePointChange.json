@@ -1,27 +1,26 @@
 {
-    "id": "65785e67282c4bbb5d7e0b10",
     "name": "calculateMasterIdsOnServicePointChange",
     "type": "DATABASE",
+    "disabled": false,
     "config": {
+        "collection": "ServicePoint",
+        "database": "Masters",
+        "full_document": true,
+        "full_document_before_change": true,
+        "match": {},
+        "maximum_throughput": false,
         "operation_types": [
             "INSERT",
             "UPDATE",
             "DELETE",
             "REPLACE"
         ],
-        "database": "Masters",
-        "collection": "ServicePoint",
-        "service_name": "mongodb-atlas",
-        "match": {},
         "project": {},
-        "full_document": true,
-        "full_document_before_change": true,
-        "unordered": false,
+        "service_name": "mongodb-atlas",
         "skip_catchup_events": false,
         "tolerate_resume_errors": false,
-        "maximum_throughput": false
+        "unordered": false
     },
-    "disabled": false,
     "event_processors": {
         "FUNCTION": {
             "config": {

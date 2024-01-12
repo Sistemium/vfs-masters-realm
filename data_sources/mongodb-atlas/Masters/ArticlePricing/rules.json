@@ -1,6 +1,6 @@
 {
-    "collection": "ArticlePricing",
     "database": "Masters",
+    "collection": "ArticlePricing",
     "roles": [
         {
             "name": "admin",
@@ -8,14 +8,14 @@
                 "%%user.custom_data.isAdmin": true
             },
             "document_filters": {
-                "write": false,
-                "read": true
+                "read": true,
+                "write": false
             },
-            "read": true,
-            "write": false,
             "insert": false,
             "delete": false,
-            "search": true
+            "search": true,
+            "read": true,
+            "write": false
         },
         {
             "name": "denyAllAccess",
@@ -23,14 +23,14 @@
                 "%%user.custom_data.masterId": null
             },
             "document_filters": {
-                "write": false,
-                "read": false
+                "read": false,
+                "write": false
             },
-            "read": false,
-            "write": false,
             "insert": false,
             "delete": false,
-            "search": false
+            "search": false,
+            "read": false,
+            "write": false
         },
         {
             "name": "userWithMasterId",
@@ -42,7 +42,6 @@
                 }
             },
             "document_filters": {
-                "write": false,
                 "read": {
                     "$or": [
                         {
@@ -52,13 +51,14 @@
                             "master": "%%user.custom_data.masterId"
                         }
                     ]
-                }
+                },
+                "write": false
             },
-            "read": true,
-            "write": false,
             "insert": false,
             "delete": false,
-            "search": true
+            "search": true,
+            "read": true,
+            "write": false
         }
     ]
 }

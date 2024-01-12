@@ -1,6 +1,6 @@
 {
-    "collection": "ServiceItem",
     "database": "Masters",
+    "collection": "ServiceItem",
     "roles": [
         {
             "name": "admin",
@@ -8,14 +8,14 @@
                 "%%user.custom_data.isAdmin": true
             },
             "document_filters": {
-                "write": true,
-                "read": true
+                "read": true,
+                "write": true
             },
-            "read": true,
-            "write": true,
             "insert": true,
             "delete": true,
-            "search": true
+            "search": true,
+            "read": true,
+            "write": true
         },
         {
             "name": "denyAllAccess",
@@ -23,31 +23,31 @@
                 "%%user.custom_data.masterId": null
             },
             "document_filters": {
-                "write": false,
-                "read": false
+                "read": false,
+                "write": false
             },
-            "read": false,
-            "write": false,
             "insert": false,
             "delete": false,
-            "search": false
+            "search": false,
+            "read": false,
+            "write": false
         },
         {
             "name": "user",
             "apply_when": {},
             "document_filters": {
-                "write": {
+                "read": {
                     "servingMaster": "%%user.custom_data.masterId"
                 },
-                "read": {
+                "write": {
                     "servingMaster": "%%user.custom_data.masterId"
                 }
             },
-            "read": true,
-            "write": true,
             "insert": true,
             "delete": true,
-            "search": true
+            "search": true,
+            "read": true,
+            "write": true
         }
     ]
 }

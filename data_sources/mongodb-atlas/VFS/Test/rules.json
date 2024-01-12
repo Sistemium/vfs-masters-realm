@@ -1,6 +1,6 @@
 {
-    "collection": "Test",
     "database": "VFS",
+    "collection": "Test",
     "roles": [
         {
             "name": "readAndWriteAll",
@@ -8,14 +8,14 @@
                 "%%user.custom_data.type": "master"
             },
             "document_filters": {
-                "write": true,
-                "read": true
+                "read": true,
+                "write": true
             },
-            "read": true,
-            "write": true,
             "insert": true,
             "delete": true,
-            "search": true
+            "search": true,
+            "read": true,
+            "write": true
         }
     ]
 }
