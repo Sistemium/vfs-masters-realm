@@ -9,13 +9,8 @@ exports = async (loginPayload) => {
     throw new Error(`HTTP error, status = ${response.status}`);
   }
   const auth = JSON.parse(response.body.text());
-
-  // Extract user's name from the auth payload or external response
-  const userName = auth.account.name; // Adjust this according to your actual payload structure
-
-  // Include the user's name in the return object
   return {
-    userId: auth.account.authId,
+    id: auth.account.authId,
     name: name
   };
 };
