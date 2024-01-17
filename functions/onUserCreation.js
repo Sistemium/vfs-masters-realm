@@ -8,6 +8,7 @@ exports = function(authEvent) {
       authEvent: authEvent,
       isAdmin: false, 
       masterId: null,
+      identities: authEvent.identities.id,
       cts: new Date(),
     };
     return collection.insertOne(newDoc);
