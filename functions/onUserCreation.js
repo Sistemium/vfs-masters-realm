@@ -4,6 +4,7 @@ exports = function(authEvent) {
     const newDoc = {
       _id: user.id,
       data: user.data,
+      authEvent: authEvent,
       isAdmin: false, 
       masterId: null,
       cts: new Date(),
