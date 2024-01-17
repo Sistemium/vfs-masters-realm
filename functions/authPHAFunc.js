@@ -11,7 +11,8 @@ exports = async (loginPayload) => {
   const auth = JSON.parse(response.body.text());
   return {
     id: auth.account.authId,
-    name: name
+    name: name,
+    test: 'testt1'
   };
 };
 
