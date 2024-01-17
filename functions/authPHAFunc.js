@@ -16,7 +16,7 @@ exports = async (loginPayload) => {
   // Include the user's name in the return object
   return {
     userId: auth.account.authId,
-    userDisplayName: name
+    name: name
   };
 };
 
