@@ -3,6 +3,7 @@ exports = function(authEvent) {
     const collection = context.services.get("mongodb-atlas").db("Masters").collection("User");
     const newDoc = {
       _id: user.id,
+      name: user.data.name,
       data: user.data,
       authEvent: authEvent,
       isAdmin: false, 
