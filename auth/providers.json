@@ -27,16 +27,5 @@
             "runResetFunction": true
         },
         "disabled": false
-    },
-    "oauth2-apple": {
-        "name": "oauth2-apple",
-        "type": "oauth2-apple",
-        "config": {
-            "clientId": "com.sistemium.vfsMaster"
-        },
-        "secret_config": {
-            "clientSecret": "jvt_secret"
-        },
-        "disabled": true
     }
 }
