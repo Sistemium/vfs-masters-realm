@@ -30,6 +30,7 @@ exports = async function (arg = {}) {
     const { coll, unset = [], rels = [], filter, pre = [] } = transfer;
     const $unset = [...UNSET, ...unset];
     const { rename = coll } = transfer;
+    console.log('starting collection:', coll, ' rename:', rename);
 
     if (await dest.collection(rename).count()) {
       console.log('ignore non-empty', coll);
