@@ -1,26 +1,27 @@
 {
+    "id": "65785e1653fbae7b200e352a",
     "name": "calculateMasterIdsOnServiceItemChange",
     "type": "DATABASE",
-    "disabled": false,
     "config": {
-        "collection": "ServiceItem",
-        "database": "Masters",
-        "full_document": true,
-        "full_document_before_change": true,
-        "match": {},
-        "maximum_throughput": false,
         "operation_types": [
             "INSERT",
             "UPDATE",
             "DELETE",
             "REPLACE"
         ],
-        "project": {},
+        "database": "Masters",
+        "collection": "ServiceItem",
         "service_name": "mongodb-atlas",
+        "match": {},
+        "project": {},
+        "full_document": true,
+        "full_document_before_change": true,
+        "unordered": false,
         "skip_catchup_events": false,
         "tolerate_resume_errors": false,
-        "unordered": false
+        "maximum_throughput": false
     },
+    "disabled": true,
     "event_processors": {
         "FUNCTION": {
             "config": {
