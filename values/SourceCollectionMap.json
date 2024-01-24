@@ -371,7 +371,7 @@
                         "as": "fst",
                         "foreignField": "id",
                         "from": "FilterSystemType",
-                        "localField": "filterSystemTypeId"
+                        "localField": "fs.filterSystemTypeId"
                     }
                 },
                 {
