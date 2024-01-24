@@ -367,8 +367,19 @@
                     "$unwind": "$fs"
                 },
                 {
+                    "$lookup": {
+                        "as": "fst",
+                        "foreignField": "id",
+                        "from": "FilterSystemType",
+                        "localField": "filterSystemTypeId"
+                    }
+                },
+                {
+                    "$unwind": "$fst"
+                },
+                {
                     "$set": {
-                        "filterSystemType": "$fs._id",
+                        "filterSystemType": "$fst._id",
                         "guaranteePeriod": {
                             "$ifNull": [
                                 "$guaranteePeriod",
@@ -423,6 +434,7 @@
                 "site",
                 "sp",
                 "fs",
+                "fst",
                 "filterSystemId"
             ]
         },
