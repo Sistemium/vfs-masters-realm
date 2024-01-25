@@ -8,6 +8,11 @@
                 "collectionName": "ServiceItem",
                 "dbName": "Masters",
                 "recordPreimages": true
+            },
+            {
+                "collectionName": "ServicePoint",
+                "dbName": "Masters",
+                "recordPreimages": true
             }
         ],
         "readPreference": "primary",
