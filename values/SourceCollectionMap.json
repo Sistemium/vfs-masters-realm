@@ -640,106 +640,13 @@
             ]
         },
         {
-            "coll": "StockWithdrawing",
-            "pre": [
-                {
-                    "$match": {
-                        "counterpartyType": "Storage"
-                    }
-                },
-                {
-                    "$lookup": {
-                        "as": "items",
-                        "foreignField": "stockWithdrawingId",
-                        "from": "StockWithdrawingItem",
-                        "localField": "id"
-                    }
-                },
-                {
-                    "$unwind": "$items"
-                },
-                {
-                    "$group": {
-                        "_id": "$counterpartyId",
-                        "articles": {
-                            "$addToSet": "$items.articleId"
-                        },
-                        "cnt": {
-                            "$sum": {
-                                "$numberInt": "1"
-                            }
-                        },
-                        "md": {
-                            "$max": "$date"
-                        }
-                    }
-                },
-                {
-                    "$lookup": {
-                        "as": "s",
-                        "foreignField": "id",
-                        "from": "Storage",
-                        "localField": "_id"
-                    }
-                },
-                {
-                    "$unwind": "$s"
-                },
-                {
-                    "$match": {
-                        "s.type": "personal"
-                    }
-                },
-                {
-                    "$set": {
-                        "storage": "$s.id"
-                    }
-                },
-                {
-                    "$unwind": "$articles"
-                },
-                {
-                    "$group": {
-                        "_id": "$articles",
-                        "storageIds": {
-                            "$addToSet": "$storage"
-                        }
-                    }
-                },
-                {
-                    "$lookup": {
-                        "as": "a",
-                        "foreignField": "id",
-                        "from": "Article",
-                        "localField": "_id"
-                    }
-                },
-                {
-                    "$unwind": "$a"
-                },
-                {
-                    "$set": {
-                        "a.storageIds": "$storageIds"
-                    }
-                },
-                {
-                    "$replaceRoot": {
-                        "newRoot": "$a"
-                    }
-                },
-                {
-                    "$match": {
-                        "materials": null
-                    }
-                }
-            ],
+            "coll": "Article",
             "rels": [
                 {
                     "field": "avatarPictureId",
                     "from": "Picture"
                 }
             ],
-            "rename": "Article",
             "unset": [
                 "barcodes",
                 "boxes",
