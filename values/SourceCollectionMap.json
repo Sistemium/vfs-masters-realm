@@ -688,6 +688,9 @@
         },
         {
             "coll": "ArticlePricing",
+            "filter": {
+                "pricingId": "397f4613-4ec6-4e59-a889-ba63265e297a"
+            },
             "rels": [
                 {
                     "field": "masterId",
