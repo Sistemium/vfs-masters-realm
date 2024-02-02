@@ -685,6 +685,19 @@
                 "name",
                 "a"
             ]
+        },
+        {
+            "coll": "ArticlePricing",
+            "rels": [
+                {
+                    "field": "masterId",
+                    "from": "Employee"
+                },
+                {
+                    "field": "siteId",
+                    "from": "Site"
+                }
+            ]
         }
     ],
     "from_secret": false
