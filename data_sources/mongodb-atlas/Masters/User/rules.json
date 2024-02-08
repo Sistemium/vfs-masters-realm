@@ -1,54 +1,19 @@
 {
-    "database": "Masters",
     "collection": "User",
+    "database": "Masters",
     "roles": [
         {
-            "name": "admin",
-            "apply_when": {
-                "%%user.custom_data.isAdmin": true
-            },
-            "document_filters": {
-                "read": true,
-                "write": true
-            },
-            "insert": true,
-            "delete": true,
-            "search": true,
-            "read": true,
-            "write": true
-        },
-        {
-            "name": "user",
+            "name": "readAndWriteAll",
             "apply_when": {},
             "document_filters": {
-                "read": {
-                    "_id": "%%user.id"
-                },
-                "write": {
-                    "_id": "%%user.id"
-                }
+                "write": true,
+                "read": true
             },
+            "read": true,
+            "write": true,
             "insert": true,
             "delete": true,
-            "search": true,
-            "fields": {
-                "data": {
-                    "read": true,
-                    "write": true
-                },
-                "name": {
-                    "read": true,
-                    "write": true
-                },
-                "ts": {
-                    "read": true,
-                    "write": true
-                }
-            },
-            "additional_fields": {
-                "read": true,
-                "write": false
-            }
+            "search": true
         }
     ]
 }
