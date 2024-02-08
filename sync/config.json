@@ -18,7 +18,8 @@
     ],
     "collection_queryable_fields_names": {
         "ArticlePricing": [
-            "master"
+            "master",
+            "article"
         ]
     }
 }
