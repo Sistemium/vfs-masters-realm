@@ -1,5 +1,30 @@
 [
     {
+        "name": "updateSelfUserData",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "MastersToVFS",
+        "private": true,
+        "run_as_system": true
+    },
+    {
+        "name": "VFSToMasters",
+        "private": false,
+        "run_as_system": true,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "authPHAFunc",
+        "private": true
+    },
+    {
+        "name": "calulate_masterIds",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
         "name": "initMasterDB",
         "private": true,
         "run_as_system": true,
@@ -15,27 +40,7 @@
         "private": true
     },
     {
-        "name": "updateSelfUserData",
-        "private": false,
-        "disable_arg_logs": true
-    },
-    {
-        "name": "authPHAFunc",
-        "private": true
-    },
-    {
-        "name": "MastersToVFS",
-        "private": true,
-        "run_as_system": true
-    },
-    {
-        "name": "VFSToMasters",
-        "private": false,
-        "run_as_system": true,
-        "disable_arg_logs": true
-    },
-    {
-        "name": "calulate_masterIds",
+        "name": "writeCustomUserData",
         "private": false,
         "disable_arg_logs": true
     }
