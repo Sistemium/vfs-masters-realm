@@ -694,7 +694,8 @@
             "rels": [
                 {
                     "field": "masterId",
-                    "from": "Employee"
+                    "from": "Employee",
+                    "optional": true
                 },
                 {
                     "field": "siteId",
