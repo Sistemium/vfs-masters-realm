@@ -699,6 +699,10 @@
                 {
                     "field": "siteId",
                     "from": "Site"
+                },
+                {
+                    "field": "articleId",
+                    "from": "Article"
                 }
             ]
         }
