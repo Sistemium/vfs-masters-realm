@@ -5,12 +5,12 @@
         "clusterName": "Cluster0",
         "namespacePreimageConfigs": [
             {
-                "collectionName": "ServiceItem",
+                "collectionName": "ServicePoint",
                 "dbName": "Masters",
                 "recordPreimages": true
             },
             {
-                "collectionName": "ServicePoint",
+                "collectionName": "ServiceItem",
                 "dbName": "Masters",
                 "recordPreimages": true
             }

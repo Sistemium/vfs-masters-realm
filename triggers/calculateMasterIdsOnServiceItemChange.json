@@ -21,7 +21,7 @@
         "tolerate_resume_errors": false,
         "maximum_throughput": false
     },
-    "disabled": true,
+    "disabled": false,
     "event_processors": {
         "FUNCTION": {
             "config": {
