@@ -5,25 +5,30 @@
             "name": "Customer",
             "pipeline": [
                 {
+                    "$match": {
+                        "masterIds": null
+                    }
+                },
+                {
                     "$lookup": {
-                        "from": "ServicePoint",
-                        "localField": "_id",
+                        "as": "points",
                         "foreignField": "customer",
-                        "as": "points"
+                        "from": "ServicePoint",
+                        "localField": "_id"
                     }
                 },
                 {
                     "$set": {
                         "masterIds": {
                             "$reduce": {
-                                "input": "$points.masterIds",
-                                "initialValue": [],
                                 "in": {
                                     "$setUnion": [
                                         "$$value",
                                         "$$this"
                                     ]
-                                }
+                                },
+                                "initialValue": [],
+                                "input": "$points.masterIds"
                             }
                         }
                     }
