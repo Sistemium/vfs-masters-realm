@@ -1,5 +1,4 @@
 {
-    "title": "Master",
     "properties": {
         "_id": {
             "bsonType": "objectId"
@@ -10,5 +9,6 @@
         "site": {
             "bsonType": "objectId"
         }
-    }
+    },
+    "title": "Master"
 }

@@ -1,8 +1,21 @@
 {
-    "title": "ServiceItemService",
     "properties": {
         "_id": {
             "bsonType": "objectId"
+        },
+        "consumed": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "object",
+                "properties": {
+                    "article": {
+                        "bsonType": "objectId"
+                    },
+                    "units": {
+                        "bsonType": "double"
+                    }
+                }
+            }
         },
         "date": {
             "bsonType": "string"
@@ -14,6 +27,9 @@
             "bsonType": "string"
         },
         "nextServiceInfo": {
+            "bsonType": "string"
+        },
+        "paymentMethod": {
             "bsonType": "string"
         },
         "serviceItem": {
@@ -36,23 +52,7 @@
         },
         "type": {
             "bsonType": "string"
-        },
-        "paymentMethod": {
-            "bsonType": "string"
-        },
-        "consumed": {
-            "bsonType": "array",
-            "items": {
-                "bsonType": "object",
-                "properties": {
-                    "article": {
-                        "bsonType": "objectId"
-                    },
-                    "units": {
-                        "bsonType": "double"
-                    }
-                }
-            }
         }
-    }
+    },
+    "title": "ServiceItemService"
 }

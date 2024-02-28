@@ -1,5 +1,4 @@
 {
-    "title": "ServicePoint",
     "properties": {
         "_id": {
             "bsonType": "objectId"
@@ -46,5 +45,6 @@
         "street": {
             "bsonType": "objectId"
         }
-    }
+    },
+    "title": "ServicePoint"
 }

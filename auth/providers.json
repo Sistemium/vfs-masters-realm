@@ -12,20 +12,20 @@
     "custom-function": {
         "name": "custom-function",
         "type": "custom-function",
+        "disabled": false,
         "config": {
             "authFunctionName": "authPHAFunc"
-        },
-        "disabled": false
+        }
     },
     "local-userpass": {
         "name": "local-userpass",
         "type": "local-userpass",
+        "disabled": false,
         "config": {
             "autoConfirm": true,
             "resetFunctionName": "resetFunc",
             "runConfirmationFunction": false,
             "runResetFunction": true
-        },
-        "disabled": false
+        }
     }
 }
