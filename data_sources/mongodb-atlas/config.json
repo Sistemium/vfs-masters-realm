@@ -6,12 +6,12 @@
         "namespacePreimageConfigs": [
             {
                 "dbName": "Masters",
-                "collectionName": "ServiceItem",
+                "collectionName": "ServicePoint",
                 "recordPreimages": true
             },
             {
                 "dbName": "Masters",
-                "collectionName": "ServicePoint",
+                "collectionName": "ServiceItem",
                 "recordPreimages": true
             }
         ],
