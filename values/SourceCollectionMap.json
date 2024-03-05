@@ -644,7 +644,8 @@
             "rels": [
                 {
                     "field": "avatarPictureId",
-                    "from": "Picture"
+                    "from": "Picture",
+                    "optional": true
                 }
             ],
             "unset": [
