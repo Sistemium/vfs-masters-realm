@@ -1,6 +1,4 @@
 {
-    "app_id": "vfs_master-skguq",
-    "config_version": 20210101,
     "name": "vfs_master",
     "provider_region": "aws-eu-west-1",
     "deployment_model": "LOCAL",
