@@ -1,0 +1,32 @@
+{
+    "title": "ServiceTask",
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "assignee": {
+            "bsonType": "objectId"
+        },
+        "cts": {
+            "bsonType": "date"
+        },
+        "date": {
+            "bsonType": "date"
+        },
+        "description": {
+            "bsonType": "string"
+        },
+        "processing": {
+            "bsonType": "string"
+        },
+        "servicePoint": {
+            "bsonType": "objectId"
+        },
+        "site": {
+            "bsonType": "objectId"
+        }
+    },
+    "required": [
+        "_id"
+    ]
+}
