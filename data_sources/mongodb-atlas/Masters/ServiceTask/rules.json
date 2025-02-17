@@ -28,6 +28,23 @@
             },
             "read": false,
             "write": false
+        },
+        {
+            "name": "user",
+            "apply_when": {},
+            "document_filters": {
+                "read": {
+                    "assignee": "%%user.custom_data.masterId"
+                },
+                "write": {
+                    "assignee": "%%user.custom_data.masterId"
+                }
+            },
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "read": true,
+            "write": true
         }
     ]
 }

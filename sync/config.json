@@ -15,6 +15,9 @@
         "ArticlePricing": [
             "master",
             "article"
+        ],
+        "ServiceTask": [
+            "assignee"
         ]
     }
 }
