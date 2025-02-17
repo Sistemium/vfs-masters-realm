@@ -16,6 +16,18 @@
             "search": true,
             "read": true,
             "write": true
+        },
+        {
+            "name": "denyAllAccess",
+            "apply_when": {
+                "%%user.custom_data.masterId": null
+            },
+            "document_filters": {
+                "read": false,
+                "write": false
+            },
+            "read": false,
+            "write": false
         }
     ]
 }
