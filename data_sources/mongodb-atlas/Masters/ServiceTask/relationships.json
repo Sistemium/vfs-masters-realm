@@ -1,0 +1,20 @@
+{
+    "assignee": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Master",
+        "source_key": "assignee",
+        "foreign_key": "_id",
+        "is_list": false
+    },
+    "servicePoint": {
+        "ref": "#/relationship/mongodb-atlas/Masters/ServicePoint",
+        "source_key": "servicePoint",
+        "foreign_key": "_id",
+        "is_list": false
+    },
+    "site": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Site",
+        "source_key": "site",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}
