@@ -19,9 +19,6 @@
         "timestamp": {
             "bsonType": "date"
         },
-        "ts": {
-            "bsonType": "timestamp"
-        },
         "type": {
             "bsonType": "string"
         }
