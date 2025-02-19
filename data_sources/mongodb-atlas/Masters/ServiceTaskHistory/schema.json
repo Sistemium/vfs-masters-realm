@@ -1,0 +1,32 @@
+{
+    "title": "ServiceTaskHistory",
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "authId": {
+            "bsonType": "string"
+        },
+        "comment": {
+            "bsonType": "string"
+        },
+        "cts": {
+            "bsonType": "date"
+        },
+        "serviceTask": {
+            "bsonType": "objectId"
+        },
+        "timestamp": {
+            "bsonType": "date"
+        },
+        "ts": {
+            "bsonType": "timestamp"
+        },
+        "type": {
+            "bsonType": "string"
+        }
+    },
+    "required": [
+        "_id"
+    ]
+}
