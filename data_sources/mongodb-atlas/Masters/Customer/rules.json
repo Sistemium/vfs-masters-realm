@@ -37,10 +37,24 @@
             "apply_when": {},
             "document_filters": {
                 "read": {
-                    "masterIds": "%%user.custom_data.masterId"
+                    "$or": [
+                        {
+                            "masterIds": "%%user.custom_data.masterId"
+                        },
+                        {
+                            "assigneeIds": "%%user.custom_data.masterId"
+                        }
+                    ]
                 },
                 "write": {
-                    "masterIds": "%%user.custom_data.masterId"
+                    "$or": [
+                        {
+                            "masterIds": "%%user.custom_data.masterId"
+                        },
+                        {
+                            "assigneeIds": "%%user.custom_data.masterId"
+                        }
+                    ]
                 }
             },
             "insert": true,
