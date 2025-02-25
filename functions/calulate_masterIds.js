@@ -4,6 +4,7 @@ exports = function(changeEvent) {
   const collectionServiceItem = context.services.get("mongodb-atlas").db("Masters").collection("ServiceItem");
   const collectionServicePoint = context.services.get("mongodb-atlas").db("Masters").collection("ServicePoint");
   const collectionCustomer = context.services.get("mongodb-atlas").db("Masters").collection("Customer");
+  const collectionServiceTask = context.services.get("mongodb-atlas").db("Masters").collection("ServiceTask");
 
   let servicePointId;
 
@@ -11,7 +12,6 @@ exports = function(changeEvent) {
 
   if (changeEvent.operationType === "update") {
     const updatedFields = changeEvent.updateDescription.updatedFields;
-
     if ("masterIds" in updatedFields && Object.keys(updatedFields).length === 1) {
       console.log("Update operation only modified 'masterIds'. Exiting to prevent recursion.");
       return;
@@ -26,6 +26,9 @@ exports = function(changeEvent) {
     } else if (changeEvent.ns.coll === "ServicePoint") {
       servicePointId = changeEvent.documentKey._id;
       console.log(`ServicePoint delete detected. Extracted documentKey._id as servicePointId: ${servicePointId}`);
+    } else if (changeEvent.ns.coll === "ServiceTask") {
+      servicePointId = changeEvent.fullDocumentBeforeChange.servicePoint;
+      console.log(`ServiceTask delete detected. Extracted servicePointId: ${servicePointId}`);
     }
   } else {
     if (changeEvent.ns.coll === "ServiceItem") {
@@ -34,6 +37,9 @@ exports = function(changeEvent) {
     } else if (changeEvent.ns.coll === "ServicePoint") {
       servicePointId = changeEvent.documentKey._id;
       console.log(`ServicePoint insert/update detected. Extracted servicePointId: ${servicePointId}`);
+    } else if (changeEvent.ns.coll === "ServiceTask") {
+      servicePointId = changeEvent.fullDocument.servicePoint;
+      console.log(`ServiceTask insert/update detected. Extracted servicePointId: ${servicePointId}`);
     }
   }
 
@@ -44,13 +50,18 @@ exports = function(changeEvent) {
 
   console.log("Proceeding with servicePointId:", servicePointId);
 
-  return collectionServiceItem.find({ servicePoint: servicePointId }).toArray()
-    .then(serviceItems => {
-      console.log(`Fetched service items for servicePointId ${servicePointId}:`, JSON.stringify(serviceItems));
+  return Promise.all([
+    collectionServiceItem.find({ servicePoint: servicePointId }).toArray(),
+    collectionServiceTask.find({ servicePoint: servicePointId }).toArray()
+  ])
+    .then(([serviceItems, serviceTasks]) => {
+      console.log(`Fetched service items:`, JSON.stringify(serviceItems));
+      console.log(`Fetched service tasks:`, JSON.stringify(serviceTasks));
 
-      const new_masterIds = serviceItems
-        .map(item => item.servingMaster)
-        .filter(id => id != null && id != undefined);
+      const new_masterIds = [
+        ...serviceItems.map(item => item.servingMaster),
+        ...serviceTasks.map(task => task.servingMaster)
+      ].filter(id => id != null && id != undefined);
 
       console.log(`Mapped masterIds for update:`, JSON.stringify(new_masterIds));
 
@@ -82,7 +93,6 @@ exports = function(changeEvent) {
                     return acc;
                   }, []);
 
-                  // Remove duplicate masterIds
                   allMasterIds = [...new Set(allMasterIds)].filter(id => id != null && id != undefined);
 
                   console.log(`Consolidated masterIds for Customer update:`, JSON.stringify(allMasterIds));
@@ -97,12 +107,9 @@ exports = function(changeEvent) {
                 });
             }
           });
-      })
-      .catch(updateError => {
-        console.error("Error during update operation:", updateError);
       });
     })
-    .catch(fetchError => {
-      console.error("Error during fetch operation:", fetchError);
+    .catch(error => {
+      console.error("Error during operations:", error);
     });
 };
