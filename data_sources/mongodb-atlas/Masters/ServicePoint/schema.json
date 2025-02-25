@@ -1,4 +1,5 @@
 {
+    "title": "ServicePoint",
     "properties": {
         "_id": {
             "bsonType": "objectId"
@@ -36,6 +37,12 @@
                 "bsonType": "objectId"
             }
         },
+        "assigneeIds": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
+        },
         "name": {
             "bsonType": "string"
         },
@@ -45,6 +52,5 @@
         "street": {
             "bsonType": "objectId"
         }
-    },
-    "title": "ServicePoint"
+    }
 }

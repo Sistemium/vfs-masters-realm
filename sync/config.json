@@ -16,6 +16,12 @@
             "master",
             "article"
         ],
+        "Customer": [
+            "assigneeIds"
+        ],
+        "ServicePoint": [
+            "assigneeIds"
+        ],
         "ServiceTask": [
             "assignee"
         ]

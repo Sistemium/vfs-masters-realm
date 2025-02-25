@@ -1,4 +1,5 @@
 {
+    "title": "Customer",
     "properties": {
         "_id": {
             "bsonType": "objectId"
@@ -30,6 +31,12 @@
                 "bsonType": "objectId"
             }
         },
+        "assigneeIds": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
+        },
         "name": {
             "bsonType": "string"
         },
@@ -45,6 +52,5 @@
         "vatCode": {
             "bsonType": "string"
         }
-    },
-    "title": "Customer"
+    }
 }
