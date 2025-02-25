@@ -1,5 +1,5 @@
 {
-    "name": "calculateMasterIdsOnServiceTaskChange",
+    "name": "calculateAssigneeIdsOnServiceTaskChange",
     "type": "DATABASE",
     "disabled": false,
     "config": {
@@ -24,7 +24,7 @@
     "event_processors": {
         "FUNCTION": {
             "config": {
-                "function_name": "calulate_masterIds"
+                "function_name": "calculateAssigneeIds"
             }
         }
     }
