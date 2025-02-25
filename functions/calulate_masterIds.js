@@ -60,7 +60,7 @@ exports = function(changeEvent) {
 
       const new_masterIds = [
         ...serviceItems.map(item => item.servingMaster),
-        ...serviceTasks.map(task => task.servingMaster)
+        ...serviceTasks.map(task => task.assignee)
       ].filter(id => id != null && id != undefined);
 
       console.log(`Mapped masterIds for update:`, JSON.stringify(new_masterIds));
