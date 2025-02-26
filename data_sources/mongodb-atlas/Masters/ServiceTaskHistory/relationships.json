@@ -1,0 +1,14 @@
+{
+    "authId": {
+        "ref": "#/relationship/mongodb-atlas/Masters/User",
+        "source_key": "authId",
+        "foreign_key": "_id",
+        "is_list": false
+    },
+    "serviceTask": {
+        "ref": "#/relationship/mongodb-atlas/Masters/ServiceTaskHistory",
+        "source_key": "serviceTask",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}
