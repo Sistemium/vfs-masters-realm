@@ -6,7 +6,7 @@
         "is_list": false
     },
     "serviceTask": {
-        "ref": "#/relationship/mongodb-atlas/Masters/ServiceTaskHistory",
+        "ref": "#/relationship/mongodb-atlas/Masters/ServiceTask",
         "source_key": "serviceTask",
         "foreign_key": "_id",
         "is_list": false
