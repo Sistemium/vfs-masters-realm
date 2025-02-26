@@ -4,6 +4,9 @@
         "_id": {
             "bsonType": "objectId"
         },
+        "assignee": {
+            "bsonType": "objectId"
+        },
         "authId": {
             "bsonType": "string"
         },
@@ -12,6 +15,9 @@
         },
         "cts": {
             "bsonType": "date"
+        },
+        "processing": {
+            "bsonType": "string"
         },
         "serviceTask": {
             "bsonType": "objectId"
