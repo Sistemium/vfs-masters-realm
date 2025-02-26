@@ -1,4 +1,10 @@
 {
+    "assignee": {
+        "ref": "#/relationship/mongodb-atlas/Masters/Master",
+        "source_key": "assignee",
+        "foreign_key": "_id",
+        "is_list": false
+    },
     "authId": {
         "ref": "#/relationship/mongodb-atlas/Masters/User",
         "source_key": "authId",
