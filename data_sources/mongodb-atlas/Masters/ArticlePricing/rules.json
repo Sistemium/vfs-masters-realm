@@ -42,21 +42,7 @@
                 }
             },
             "document_filters": {
-                "read": {
-                    "$or": [
-                        {
-                            "master": {
-                                "$exists": false
-                            }
-                        },
-                        {
-                            "master": null
-                        },
-                        {
-                            "master": "%%user.custom_data.masterId"
-                        }
-                    ]
-                },
+                "read": true,
                 "write": false
             },
             "insert": false,
