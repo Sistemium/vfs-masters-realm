@@ -45,6 +45,11 @@
                 "read": {
                     "$or": [
                         {
+                            "master": {
+                                "$exists": false
+                            }
+                        },
+                        {
                             "master": null
                         },
                         {
