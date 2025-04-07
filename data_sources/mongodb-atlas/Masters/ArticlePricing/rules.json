@@ -34,13 +34,7 @@
         },
         {
             "name": "userWithMasterId",
-            "apply_when": {
-                "%%user.custom_data.isAdmin": false,
-                "%%user.custom_data.masterId": {
-                    "$exists": true,
-                    "$ne": null
-                }
-            },
+            "apply_when": {},
             "document_filters": {
                 "read": true,
                 "write": false
