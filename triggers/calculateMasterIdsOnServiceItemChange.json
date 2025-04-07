@@ -1,7 +1,7 @@
 {
     "name": "calculateMasterIdsOnServiceItemChange",
     "type": "DATABASE",
-    "disabled": false,
+    "disabled": true,
     "config": {
         "collection": "ServiceItem",
         "database": "Masters",

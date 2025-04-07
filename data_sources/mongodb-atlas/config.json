@@ -3,6 +3,23 @@
     "type": "mongodb-atlas",
     "config": {
         "clusterName": "Cluster0",
+        "namespacePreimageConfigs": [
+            {
+                "dbName": "Masters",
+                "collectionName": "ServiceItem",
+                "recordPreimages": true
+            },
+            {
+                "dbName": "Masters",
+                "collectionName": "ServiceTask",
+                "recordPreimages": true
+            },
+            {
+                "dbName": "Masters",
+                "collectionName": "ServicePoint",
+                "recordPreimages": true
+            }
+        ],
         "readPreference": "primary",
         "wireProtocolEnabled": false
     },

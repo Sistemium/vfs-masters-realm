@@ -1,7 +1,7 @@
 {
     "name": "calculateAssigneeIdsOnServiceTaskChange",
     "type": "DATABASE",
-    "disabled": false,
+    "disabled": true,
     "config": {
         "collection": "ServiceTask",
         "database": "Masters",
