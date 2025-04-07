@@ -1,7 +1,7 @@
 {
     "name": "calculateMasterIdsOnServicePointChange",
     "type": "DATABASE",
-    "disabled": true,
+    "disabled": false,
     "config": {
         "collection": "ServicePoint",
         "database": "Masters",
