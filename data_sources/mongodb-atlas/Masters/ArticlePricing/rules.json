@@ -36,7 +36,16 @@
             "name": "userWithMasterId",
             "apply_when": {},
             "document_filters": {
-                "read": true,
+                "read": {
+                    "$or": [
+                        {
+                            "master": null
+                        },
+                        {
+                            "master": "%%user.custom_data.masterId"
+                        }
+                    ]
+                },
                 "write": false
             },
             "insert": false,
