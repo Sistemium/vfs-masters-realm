@@ -1,4 +1,5 @@
 {
+    "title": "Article",
     "properties": {
         "_id": {
             "bsonType": "objectId"
@@ -29,7 +30,9 @@
         },
         "unitsInPackage": {
             "bsonType": "int"
+        },
+        "isService": {
+            "bsonType": "bool"
         }
-    },
-    "title": "Article"
+    }
 }
