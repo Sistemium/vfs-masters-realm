@@ -24,6 +24,20 @@
         },
         "site": {
             "bsonType": "objectId"
+        },
+        "services": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "object",
+                "properties": {
+                    "articleId": {
+                        "bsonType": "objectId"
+                    },
+                    "price": {
+                        "bsonType": "double"
+                    }
+                }
+            }
         }
     },
     "required": [
